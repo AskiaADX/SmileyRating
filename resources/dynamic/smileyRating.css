@@ -1,0 +1,425 @@
+{%
+
+	dim baseSecondaryColour = CurrentADC.PropValue("secondaryColor")
+	dim dkbaseSecondaryColour = CurrentADC.PropValue("dksecondaryColor")
+	dim dkhoverbaseSecondaryColour = CurrentADC.PropValue("dkhoversecondaryColor")
+	dim dkselectedbaseSecondaryColour = CurrentADC.PropValue("dkselectedsecondaryColor")
+	dim basePrimaryColour = CurrentADC.PropValue("primaryColor")
+	dim dkbasePrimaryColour = CurrentADC.PropValue("dkprimaryColor")
+	dim dkhoverbasePrimaryColour = CurrentADC.PropValue("dkhoverprimaryColor")
+	dim dkselectedbasePrimaryColour = CurrentADC.PropValue("dkselectedprimaryColor")
+	dim borderSize = CurrentADC.PropValue("backgroundBorderSize")
+	dim borderColor = CurrentADC.PropValue("backgroundBorderColor")
+	dim borderStyle = CurrentADC.PropValue("backgroundBorderStyle")
+
+%}
+.adc-default ul,
+.adc-default li
+{
+    margin  : 0;
+    padding : 0;
+}
+.adc-default ul
+{
+    list-style-type: none;
+}
+.adc-default textarea {
+    width  : 250px;
+    height : 50px;
+}
+
+.framecontainer{
+	width:90%;
+}
+
+.adc-default{
+	height:100%;
+	padding:{%:=CurrentADC.PropValue("controlpadding")%};
+	width:100%;
+}
+
+.hidden {
+	visibility:hidden;
+}
+
+#navseparator{
+	margin:0 5% 0 5%;
+}
+
+#navcontent{
+	width:100%;
+}
+
+#navcontentmiddle{
+	width:100%;
+}
+
+
+.tooltip {
+	margin-left: -999em;
+	position: absolute;
+	padding: {%:=CurrentADC.PropValue("tooltippadding")%};
+
+}
+
+.tooltiphover {
+	{%
+	If CurrentADC.PropValue("showTooltips") = "yes" Then
+		%}
+	font-size: {%:=CurrentADC.PropValue("tooltipFontSize")%};
+	color: rgb({%:=CurrentADC.PropValue("tooltipFontColour")%});
+/*------------------------------------------- radius -------------------------------------------*/
+	-webkit-border-radius: {%:=CurrentADC.PropValue("tooltipCurvedCorners")%};
+       -moz-border-radius: {%:=CurrentADC.PropValue("tooltipCurvedCorners")%};
+        -ms-border-radius: {%:=CurrentADC.PropValue("tooltipCurvedCorners")%};
+         -o-border-radius: {%:=CurrentADC.PropValue("tooltipCurvedCorners")%};
+            border-radius: {%:=CurrentADC.PropValue("tooltipCurvedCorners")%};
+/*------------------------------------------- gradient -------------------------------------------*/
+	background: rgb({%:=CurrentADC.PropValue("tooltipColourPrimary")%});
+	background: -moz-linear-gradient( top,  rgba({%:=CurrentADC.PropValue("tooltipColourPrimary")%},0.9) 0%, rgba({%:=CurrentADC.PropValue("tooltipColourSecondary")%},0.9) 100%);
+	background: -webkit-gradient( linear, top, bottom, color-stop(0%,rgba({%:=CurrentADC.PropValue("tooltipColourPrimary")%},0.9)), color-stop(100%,rgba({%:=CurrentADC.PropValue("tooltipColourSecondary")%},0.9)));
+	background: -webkit-linear-gradient( top,  rgba({%:=CurrentADC.PropValue("tooltipColourPrimary")%},0.9) 0%,rgba({%:=CurrentADC.PropValue("tooltipColourSecondary")%},0.9) 100%);
+	background: -o-linear-gradient( top,  rgba({%:=CurrentADC.PropValue("tooltipColourPrimary")%},0.9) 0%,rgba({%:=CurrentADC.PropValue("tooltipColourSecondary")%},0.9) 100%);
+	background: -ms-linear-gradient( top,  rgba({%:=CurrentADC.PropValue("tooltipColourPrimary")%},0.9) 0%,rgba({%:=CurrentADC.PropValue("tooltipColourSecondary")%},0.9) 100%);
+	background: linear-gradient( top, rgba({%:=CurrentADC.PropValue("tooltipColourPrimary")%},0.9) 0%,rgba({%:=CurrentADC.PropValue("tooltipColourSecondary")%},0.9) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%:=CurrentADC.PropValue("tooltipColourPrimary").ToHexa()%}, endColorstr={%:=CurrentADC.PropValue("tooltipColourSecondary").ToHexa()%},GradientType=0 );
+    zoom:1;
+	
+	border: rgb({%:=CurrentADC.PropValue("tooltipBorderColour")%}) {%:=CurrentADC.PropValue("tooltipBorderThickness")%} {%:=CurrentADC.PropValue("tooltipBorderStyle")%};
+		{%
+	EndIf
+	%}
+}
+
+.answerContent{
+	{%
+	If CurrentADC.PropValue("controlAlignment") = "center" Then
+		%}
+		margin-left:auto;
+		margin-right:auto;
+		{%
+	ElseIf CurrentADC.PropValue("controlAlignment") = "right" Then
+		%}
+		margin-left:auto;
+		{%
+	ElseIf CurrentADC.PropValue("controlAlignment") = "left" Then
+		%}
+		margin-right:auto;
+		{%
+	EndIf
+	%}
+}
+
+.answers {
+	position:relative;
+	overflow:hidden;
+	border: rgb({%:=borderColor%}) {%:=borderStyle%} {%:=borderSize%}px;
+	max-width:100%;
+	{%
+	If CurrentADC.PropValue("controlAlignment") = "center" Then
+		%}
+		margin-left:auto;
+		margin-right:auto;
+		{%
+	ElseIf CurrentADC.PropValue("controlAlignment") = "right" Then
+		%}
+		margin-left:auto;
+		{%
+	ElseIf CurrentADC.PropValue("controlAlignment") = "left" Then
+		%}
+		margin-right:auto;
+		{%
+	EndIf
+	%}
+}
+
+
+.gradientSection {
+	width:100%;
+	height:100%;
+	position:relative;
+}
+
+.gradient{
+	background: rgb({%=basePrimaryColour%});
+	background: -moz-linear-gradient( top,  rgba({%=basePrimaryColour%},0.9) 0%, rgba({%=baseSecondaryColour%},0.9) 100%);
+	background: -webkit-gradient( linear, top, bottom, color-stop(0%,rgba({%=basePrimaryColour%},0.9)), color-stop(100%,rgba({%=baseSecondaryColour%},0.9)));
+	background: -webkit-linear-gradient( top,  rgba({%=basePrimaryColour%},0.9) 0%,rgba({%=baseSecondaryColour%},0.9) 100%);
+	background: -o-linear-gradient( top,  rgba({%=basePrimaryColour%},0.9) 0%,rgba({%=baseSecondaryColour%},0.9) 100%);
+	background: -ms-linear-gradient( top,  rgba({%=basePrimaryColour%},0.9) 0%,rgba({%=baseSecondaryColour%},0.9) 100%);
+	background: linear-gradient( top, rgba({%=basePrimaryColour%},0.9) 0%,rgba({%=baseSecondaryColour%},0.9) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%=basePrimaryColour.ToHexa()%}, endColorstr={%=baseSecondaryColour.ToHexa()%},GradientType=0 );
+    zoom:1;
+}
+
+.nogradient{
+	background: rgb({%=basePrimaryColour%});
+    zoom:1;
+}
+
+.gradientHorizontal{
+	background: rgb({%=basePrimaryColour%});
+	background: -moz-linear-gradient( left,  rgba({%=baseSecondaryColour%},0.9) 0%, rgba({%=basePrimaryColour%},0.9) 100%);
+	background: -webkit-gradient( linear, left, right, color-stop(0%,rgba({%=baseSecondaryColour%},0.9)), color-stop(100%,rgba({%=basePrimaryColour%},0.9)));
+	background: -webkit-linear-gradient( left,  rgba({%=baseSecondaryColour%},0.9) 0%,rgba({%=basePrimaryColour%},0.9) 100%);
+	background: -o-linear-gradient( left,  rgba({%=baseSecondaryColour%},0.9) 0%,rgba({%=basePrimaryColour%},0.9) 100%);
+	background: -ms-linear-gradient( left,  rgba({%=baseSecondaryColour%},0.9) 0%,rgba({%=basePrimaryColour%},0.9) 100%);
+	background: linear-gradient( left, rgba({%=baseSecondaryColour%},0.9) 0%,rgba({%=basePrimaryColour%},0.9) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%=baseSecondaryColour.ToHexa()%}, endColorstr={%=basePrimaryColour.ToHexa()%},GradientType=1 );
+    zoom:1;
+}
+
+.dkgradient{
+	background: rgb({%=dkbasePrimaryColour%});
+	background: -moz-linear-gradient( top,  rgba({%=dkbasePrimaryColour%},0.9) 0%, rgba({%=dkbaseSecondaryColour%},0.9) 100%);
+	background: -webkit-gradient( linear, top, bottom, color-stop(0%,rgba({%=dkbasePrimaryColour%},0.9)), color-stop(100%,rgba({%=dkbaseSecondaryColour%},0.9)));
+	background: -webkit-linear-gradient( top,  rgba({%=dkbasePrimaryColour%},0.9) 0%,rgba({%=dkbaseSecondaryColour%},0.9) 100%);
+	background: -o-linear-gradient( top,  rgba({%=dkbasePrimaryColour%},0.9) 0%,rgba({%=dkbaseSecondaryColour%},0.9) 100%);
+	background: -ms-linear-gradient( top,  rgba({%=dkbasePrimaryColour%},0.9) 0%,rgba({%=dkbaseSecondaryColour%},0.9) 100%);
+	background: linear-gradient( top, rgba({%=dkbasePrimaryColour%},0.9) 0%,rgba({%=dkbaseSecondaryColour%},0.9) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%=CurrentADC.PropValue("dkprimaryColor").ToHexa()%}, endColorstr={%=CurrentADC.PropValue("dksecondaryColor").ToHexa()%},GradientType=0 );
+    zoom:1;
+}
+
+.dkhovergradient:hover {
+	background: rgb({%=dkbasePrimaryColour%});
+	background: -moz-linear-gradient( top,  rgba({%=dkhoverbasePrimaryColour%},0.9) 0%, rgba({%=dkhoverbaseSecondaryColour%},0.9) 100%);
+	background: -webkit-gradient( linear, top, bottom, color-stop(0%,rgba({%=dkhoverbasePrimaryColour%},0.9)), color-stop(100%,rgba({%=dkhoverbaseSecondaryColour%},0.9)));
+	background: -webkit-linear-gradient( top,  rgba({%=dkhoverbasePrimaryColour%},0.9) 0%,rgba({%=dkhoverbaseSecondaryColour%},0.9) 100%);
+	background: -o-linear-gradient( top,  rgba({%=dkhoverbasePrimaryColour%},0.9) 0%,rgba({%=dkhoverbaseSecondaryColour%},0.9) 100%);
+	background: -ms-linear-gradient( top,  rgba({%=dkhoverbasePrimaryColour%},0.9) 0%,rgba({%=dkhoverbaseSecondaryColour%},0.9) 100%);
+	background: linear-gradient( top, rgba({%=dkhoverbasePrimaryColour%},0.9) 0%,rgba({%=dkhoverbaseSecondaryColour%},0.9) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%=CurrentADC.PropValue("dkhoverprimaryColor").ToHexa()%}, endColorstr={%=CurrentADC.PropValue("dkhoversecondaryColor").ToHexa()%},GradientType=0 );
+    zoom:1;
+}
+
+.dkgradient.dkselected {
+	background: rgb({%=dkbasePrimaryColour%});
+	background: -moz-linear-gradient( top,  rgba({%=dkselectedbasePrimaryColour%},0.9) 0%, rgba({%=dkselectedbaseSecondaryColour%},0.9) 100%);
+	background: -webkit-gradient( linear, top, bottom, color-stop(0%,rgba({%=dkselectedbasePrimaryColour%},0.9)), color-stop(100%,rgba({%=dkselectedbaseSecondaryColour%},0.9)));
+	background: -webkit-linear-gradient( top,  rgba({%=dkselectedbasePrimaryColour%},0.9) 0%,rgba({%=dkselectedbaseSecondaryColour%},0.9) 100%);
+	background: -o-linear-gradient( top,  rgba({%=dkselectedbasePrimaryColour%},0.9) 0%,rgba({%=dkselectedbaseSecondaryColour%},0.9) 100%);
+	background: -ms-linear-gradient( top,  rgba({%=dkselectedbasePrimaryColour%},0.9) 0%,rgba({%=dkselectedbaseSecondaryColour%},0.9) 100%);
+	background: linear-gradient( top, rgba({%=dkselectedbasePrimaryColour%},0.9) 0%,rgba({%=dkselectedbaseSecondaryColour%},0.9) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr={%=CurrentADC.PropValue("dkselectedprimaryColor").ToHexa()%}, endColorstr={%=CurrentADC.PropValue("dkselectedsecondaryColor").ToHexa()%},GradientType=0 );
+	zoom:1;
+}
+
+.radius {
+	-webkit-border-radius: {%:=CurrentADC.PropValue("borderRadius")%}px;
+       -moz-border-radius: {%:=CurrentADC.PropValue("borderRadius")%}px;
+        -ms-border-radius: {%:=CurrentADC.PropValue("borderRadius")%}px;
+         -o-border-radius: {%:=CurrentADC.PropValue("borderRadius")%}px;
+            border-radius: {%:=CurrentADC.PropValue("borderRadius")%}px;
+}
+
+.dkradius {
+	-webkit-border-radius: {%:=CurrentADC.PropValue("dkborderRadius")%}px;
+       -moz-border-radius: {%:=CurrentADC.PropValue("dkborderRadius")%}px;
+        -ms-border-radius: {%:=CurrentADC.PropValue("dkborderRadius")%}px;
+         -o-border-radius: {%:=CurrentADC.PropValue("dkborderRadius")%}px;
+            border-radius: {%:=CurrentADC.PropValue("dkborderRadius")%}px;
+}
+
+
+.smileysSection {
+	position:relative;
+	height:{%:=CurrentADC.PropValue("controlheight")%};
+	max-width:100%;
+	{%
+	If CurrentADC.PropValue("controlAlignment") = "center" Then
+		%}
+		margin-left:auto;
+		margin-right:auto;
+		{%
+	ElseIf CurrentADC.PropValue("controlAlignment") = "right" Then
+		%}
+		margin-left:auto;
+		{%
+	ElseIf CurrentADC.PropValue("controlAlignment") = "left" Then
+		%}
+		margin-right:auto;
+		{%
+	EndIf
+	%}
+}
+
+.smileysSection img {
+	position:absolute;
+	vertical-align: middle;
+	min-width:{%:=CurrentADC.PropValue("smileyminwidth")%};
+}
+
+.smileysSection .dkdiv {
+	padding:{%:=CurrentADC.PropValue("DKpadding")%};
+	margin:{%:=CurrentADC.PropValue("DKmargin")%};
+	position:absolute;
+	color:rgb({%:=CurrentADC.PropValue("dkfontColor")%});
+	border:rgb({%:=CurrentADC.PropValue("dkborderColor")%}) {%:=CurrentADC.PropValue("dkborderStyle")%} {%:=CurrentADC.PropValue("dkborderSize")%}px;
+	vertical-align: middle;
+    white-space: nowrap;
+    text-align:center;
+    overflow: hidden;
+    cursor:pointer;
+    font-size:{%:=CurrentADC.PropValue("dkfontSize")%};
+    line-height:100%;
+}
+
+.smileysSection .dkdiv.dkselected {
+	color:rgb({%:=CurrentADC.PropValue("dkselectedfontColor")%});
+	border:rgb({%:=CurrentADC.PropValue("dkselectedborderColor")%}) {%:=CurrentADC.PropValue("dkselectedborderStyle")%} {%:=CurrentADC.PropValue("dkselectedborderSize")%}px;
+}
+
+.smileysSection .dkhoverborder:hover {
+	border:rgb({%:=CurrentADC.PropValue("dkhoverborderColor")%}) {%:=CurrentADC.PropValue("dkhoverborderStyle")%} {%:=CurrentADC.PropValue("dkhoverborderSize")%}px;
+}
+
+.smileysSection .dkhoverfont:hover {
+	color:rgb({%:=CurrentADC.PropValue("dkhoverfontColor")%});
+}
+
+
+.shadowoutside {
+	 -webkit-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+       -moz-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+        -ms-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+         -o-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+            box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+}
+
+.shadowinside {
+	 -webkit-box-shadow: inset 0 0 10px #000000;
+       -moz-box-shadow:inset 0 0 10px #000000;
+        -ms-box-shadow: inset 0 0 10px #000000;
+         -o-box-shadow: inset 0 0 10px #000000;
+            box-shadow: inset 0 0 10px #000000;
+}
+
+
+.dkshadowoutside {
+	 -webkit-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+       -moz-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+        -ms-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+         -o-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+            box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+}
+
+.dkshadowinside {
+	 -webkit-box-shadow: inset 0 0 10px #000000;
+       -moz-box-shadow:inset 0 0 10px #000000;
+        -ms-box-shadow: inset 0 0 10px #000000;
+         -o-box-shadow: inset 0 0 10px #000000;
+            box-shadow: inset 0 0 10px #000000;
+}
+
+.dkdiv.dkhovernoshadow:hover{
+	-webkit-box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+       -moz-box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+        -ms-box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+         -o-box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+            box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+}
+
+.dkdiv.dkhovershadowoutside:hover {
+	 -webkit-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+       -moz-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+        -ms-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+         -o-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+            box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+}
+
+.dkdiv.dkhovershadowinside:hover {
+	 -webkit-box-shadow: inset 0 0 10px #000000;
+       -moz-box-shadow:inset 0 0 10px #000000;
+        -ms-box-shadow: inset 0 0 10px #000000;
+         -o-box-shadow: inset 0 0 10px #000000;
+            box-shadow: inset 0 0 10px #000000;
+}
+
+.dkdiv.dkselected.dkhovernoshadow:hover{
+	-webkit-box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+       -moz-box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+        -ms-box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+         -o-box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+            box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+}
+
+.dkdiv.dkselected.dkhovershadowoutside:hover {
+	 -webkit-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+       -moz-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+        -ms-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+         -o-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+            box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+}
+
+.dkdiv.dkselected.dkhovershadowinside:hover {
+	 -webkit-box-shadow: inset 0 0 10px #000000;
+       -moz-box-shadow:inset 0 0 10px #000000;
+        -ms-box-shadow: inset 0 0 10px #000000;
+         -o-box-shadow: inset 0 0 10px #000000;
+            box-shadow: inset 0 0 10px #000000;
+}
+
+.dkdiv.dkselected.selecteddknoshadow {
+	-webkit-box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+       -moz-box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+        -ms-box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+         -o-box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+            box-shadow: 0px 0px 0px #999, 0px 0px 0px #999;
+}
+
+.dkdiv.dkselected.selecteddkshadowoutside {
+	 -webkit-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+       -moz-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+        -ms-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+         -o-box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+            box-shadow: 1px 1px 4px #999, 5px 0 20px #999;
+}
+
+.dkdiv.dkselected.selecteddkshadowinside {
+	 -webkit-box-shadow: inset 0 0 10px #000000;
+       -moz-box-shadow:inset 0 0 10px #000000;
+        -ms-box-shadow: inset 0 0 10px #000000;
+         -o-box-shadow: inset 0 0 10px #000000;
+            box-shadow: inset 0 0 10px #000000;
+}
+
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.newDivTest {
+	width:10%;
+	height:102px;
+}
+
+
+.question {
+	color: rgb({%:=CurrentADC.PropValue("fontColor")%});
+	font-style:{%:=CurrentADC.PropValue("fontStyle")%};
+	font-size:{%:=CurrentADC.PropValue("fontSize")%};
+}
+
+.question img{
+	padding: {%:=CurrentADC.PropValue("imagePadding")%};
+	{%
+	If CurrentADC.PropValue("forceImageSize") = "both" Then
+		%}
+		max-width: {%:=CurrentADC.PropValue("maxImageWidth")%}px;
+		max-height: {%:=CurrentADC.PropValue("maxImageHeight")%}px;
+		{%
+	ElseIf CurrentADC.PropValue("forceImageSize") = "width" Then
+		%}
+		max-width: {%:=CurrentADC.PropValue("maxImageWidth")%}px;
+		{%
+	ElseIf CurrentADC.PropValue("forceImageSize") = "height" Then
+		%}
+		max-height: {%:=CurrentADC.PropValue("maxImageHeight")%}px;
+		{%
+	EndIF
+	%}
+
+}

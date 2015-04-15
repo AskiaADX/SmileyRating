@@ -1,0 +1,24 @@
+{%
+	
+	dim hasparentloop = CurrentQuestion.HasParentLoop
+	dim indexLoop = ""
+	Dim ar
+	If hasparentloop = 1 Then
+		ar = CurrentQuestion.ParentLoop.AvailableResponses
+		indexLoop = CurrentQuestion.ParentLoop.CurrentIteration.index.toString()
+	EndIf
+	
+	%}
+<div id="adc_{%= CurrentQuestion.Id %}" class="adc-default">
+	{%
+	If CurrentADC.PropValue("isinloop") = "yes" Then
+		%}
+    	{%:= CurrentADC.GetContent("dynamic/singleLoopFallback.html").ToText() %}
+   		{%
+    Else
+    	%}
+    	{%:= CurrentADC.GetContent("dynamic/singleFallback.html").ToText() %}
+    	{%
+    EndIf
+    %}
+</div>

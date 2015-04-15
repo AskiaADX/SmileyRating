@@ -1,0 +1,587 @@
+{%
+	
+	dim inputName
+	Dim inputId
+	Dim inputValue
+	dim hasparentloop = CurrentQuestion.HasParentLoop
+	dim indexLoop = ""
+	Dim ar
+	dim nbElements = 1
+	If hasparentloop = 1 Then
+		indexLoop = CurrentQuestion.ParentLoop.CurrentIteration.index.toString()
+		ar = CurrentQuestion.ParentLoop.AvailableResponses
+	    inputName = CurrentQuestion.Iteration(ar[CurrentQuestion.ParentLoop.CurrentIteration].Index).InputName("list") 
+	    inputValue = CurrentQuestion.Iteration(ar[CurrentQuestion.ParentLoop.CurrentIteration].Index).InputValue() 
+	    nbElements = ar.Count
+	Else 
+		inputName = CurrentQuestion.inputName()
+		inputValue = CurrentQuestion.InputValue()
+	EndIf
+	
+	dim turnOnDK = CurrentADC.PropValue("turnOnDK")
+	dim shadow = CurrentADC.PropValue("shadow")
+	dim shadowinside = ""
+	dim shadowoutside = ""
+	If shadow = "shadowoutside" Then
+		shadowoutside = "shadowoutside"
+		shadowinside = ""
+	ElseIf shadow = "shadowinside" Then
+		shadowoutside = ""
+		shadowinside = "shadowinside"
+	EndIf
+	
+	dim answerWidth
+	dim dkhovergradient = ""
+	If CurrentADC.PropValue("dkhovercolorshow") = "yes" Then
+		dkhovergradient = "dkhovergradient"
+	EndIf
+	dim dkhoverfont = ""
+	If CurrentADC.PropValue("dkhoverfontshow") = "yes" Then
+		dkhoverfont = "dkhoverfont"
+	EndIf
+	dim dkhoverborder = ""
+	If CurrentADC.PropValue("dkhoverbordershow") = "yes" Then
+		dkhoverborder = "dkhoverborder"
+	EndIf
+	dim dkhoverdropshadow = ""
+	If CurrentADC.PropValue("dkhovershadowshow") = "yes" Then
+		dkhoverdropshadow = CurrentADC.PropValue("dkhovershadow")
+	EndIf
+	dim dkselecteddropshadow = ""
+	If CurrentADC.PropValue("dkselectedshadowshow") = "yes" Then
+		dkselecteddropshadow = CurrentADC.PropValue("dkselectedshadow")
+	EndIf
+	
+	dim controlwidth = CurrentADC.PropValue("controlwidth")
+	dim controlheight = CurrentADC.PropValue("controlheight")
+	
+%}
+
+{%
+dim increment
+For increment = 1 To nbElements
+
+        		%}
+        	
+<div unselectable="on" id="smileys{%:=increment%}" class="answerContent" style="width:100%;height:100%;max-width:{%:=CurrentADC.PropValue("controlmaxwidth")%};">
+	{%
+	If CurrentQuestion.AvailableResponses.Count > 6 or CurrentQuestion.AvailableResponses.Count < 2 Then
+	%}	
+		<p style="width:100%;height:100%;text-align:center;">This control can only be applied on a single closed question with 2 to 6 answers.</p>
+	{%
+	Else
+		If 	CurrentQuestion.AvailableResponses.Count = 6 And turnOnDK = "dkoff" Then
+			%} 
+			<p style="width:100%;height:100%;text-align:center;">This control can be applied on a single closed question with 6 answers only if a DK answer is allowed (go to properties).</p>
+			{%		
+		Else
+		%}  
+	  
+			{%
+			If hasparentloop = 1 Then
+				dim question = CurrentQuestion.ParentLoop.AvailableResponses[increment].caption
+				dim captionMargin = ""
+				If CurrentADC.PropValue("captionWidth") <> "auto" Then
+					If CurrentADC.PropValue("captionAlignment") = "left" Then
+						captionMargin = "margin-right:auto;"
+					ElseIf CurrentADC.PropValue("captionAlignment") = "right" Then
+						captionMargin = "margin-left:auto;"
+					Else 
+						captionMargin = "margin-right:auto;margin-left:auto;"
+					EndIf
+				EndIf
+			%}	
+				<p class="question" style="text-align:{%:=CurrentADC.PropValue("captionAlignment")%};
+										   padding:{%:=CurrentADC.PropValue("captionPadding")%};
+										   width:{%:=CurrentADC.PropValue("captionWidth")%};
+										   {%:=captionMargin%}">
+					{%
+					If CurrentADC.PropValue("imageAlignment") = "right" Then
+					%}
+						{%:=question%}
+						{%
+						If CurrentQuestion.ParentLoop.AvailableResponses.resourceUrl[increment] <> "" Then
+							%}
+							<img src="{%:=CurrentQuestion.ParentLoop.AvailableResponses.resourceUrl[increment]%}"/>
+							{%
+						Else
+						EndIf
+						%}
+							
+					{%
+					ElseIf CurrentADC.PropValue("imageAlignment") = "left" Then
+					%}
+						{%
+						If CurrentQuestion.ParentLoop.AvailableResponses.resourceUrl[increment] <> "" Then
+							%}
+							<img src="{%:=CurrentQuestion.ParentLoop.AvailableResponses.resourceUrl[increment]%}"/>
+							{%
+						Else
+						EndIf
+						%}
+						{%:=question%}
+					{%
+					EndIf
+					%}
+				</p>
+									   
+			{%
+			EndIf
+			
+			If turnOnDK = "dkoff" Then
+				answerWidth = CurrentQuestion.AvailableResponses.Count * 100
+			Else 
+				answerWidth = (CurrentQuestion.AvailableResponses.Count - 1)* 100
+			EndIf
+			
+			If turnOnDK = "dkon" And CurrentQuestion.AvailableResponses.Count = 2 Then
+				%}  		
+				
+				{%
+			Else 
+				%}
+				<div id="answers{%:=increment%}" class="radius {%:=shadowoutside%} answers" style="width:90%;height:{%:=controlheight%};">
+					
+						<div id="gradientSection" class="gradientSection {%:=CurrentADC.PropValue("gradient")%} {%:=shadowinside%}" style="width:100%;">
+			
+			 
+						</div>
+					
+				</div>	
+				{%
+			EndIf
+			%}
+			<div id="smileysSection{%:=increment%}" class="smileysSection" style="width:95%;height:{%:=controlheight%};">
+				{%
+				dim incrementImg
+				dim lastImgIteration
+				If turnOnDK = "dkon" Then
+					If CurrentQuestion.AvailableResponses.Count = 6 Then
+						dim smilewidth = 10*CurrentADC.PropValue("smileycoef").toNumber()
+					
+						If hasparentloop = 1 Then
+							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:22.5%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:45%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[4].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:67.5%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[5].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[5].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[5].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:90%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								{%
+							Else
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[5].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[5].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[5].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[4].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:22.5%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:45%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:67.5%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:90%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								{%
+							EndIf
+						Else
+							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:22.5%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:45%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[4].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:67.5%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[5].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[5].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[5].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:90%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								{%
+							Else
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[5].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[5].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[5].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[4].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:22.5%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:45%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:67.5%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:90%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								{%
+							EndIf	
+						EndIf
+						%}
+						<div class="{%:=CurrentQuestion.AvailableResponses[6].InputValue()%} dkdiv dkgradient {%:=dkhovergradient%} {%:=dkhoverfont%} {%:=dkhoverborder%} dkradius {%:=CurrentADC.PropValue("dkshadow")%} {%:=dkhoverdropshadow%} {%:=dkselecteddropshadow%}" style="cursor:pointer;">{%:=CurrentADC.PropValue("DKtext")%}</div>
+						{%
+					ElseIf CurrentQuestion.AvailableResponses.Count = 5 Then
+						smilewidth = 12.5*CurrentADC.PropValue("smileycoef").toNumber()
+						If hasparentloop = 1 Then
+							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:29.2%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:58.4%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[4].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:87.5%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								{%
+							Else
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[4].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:29.2%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:58.4%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:87.5%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								{%
+							EndIf
+						Else
+							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:29.2%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:58.4%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[4].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:87.5%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								{%
+							Else
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[4].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:29.2%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:58.4%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:87.5%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								{%
+							EndIf
+						EndIf			
+						%}
+						<div class="{%:=CurrentQuestion.AvailableResponses[5].InputValue()%} dkdiv dkgradient {%:=dkhovergradient%} {%:=dkhoverfont%} {%:=dkhoverborder%} dkradius {%:=CurrentADC.PropValue("dkshadow")%} {%:=dkhoverdropshadow%} {%:=dkselecteddropshadow%}" style="cursor:pointer;">{%:=CurrentADC.PropValue("DKtext")%}</div>
+						{%			
+					ElseIf CurrentQuestion.AvailableResponses.Count = 4 Then
+						smilewidth = 16.7*CurrentADC.PropValue("smileycoef").toNumber()
+						If hasparentloop = 1 Then
+							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:41.65%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:83.3%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								{%
+							Else
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:41.65%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:83.3%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								{%
+							EndIf
+						Else
+							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:41.65%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:83.3%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								{%
+							Else
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:41.65%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:83.3%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								{%
+							EndIf
+						EndIf
+						%}
+						<div class="{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} dkdiv dkgradient {%:=dkhovergradient%} {%:=dkhoverfont%} {%:=dkhoverborder%} dkradius {%:=CurrentADC.PropValue("dkshadow")%} {%:=dkhoverdropshadow%} {%:=dkselecteddropshadow%}" style="cursor:pointer;">{%:=CurrentADC.PropValue("DKtext")%}</div>
+						{%
+					ElseIf CurrentQuestion.AvailableResponses.Count = 3 Then
+						smilewidth = 25*CurrentADC.PropValue("smileycoef").toNumber()
+						If hasparentloop = 1 Then
+							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:75%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								{%
+							Else
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:75%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								{%
+							EndIf
+						Else
+							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:75%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								{%
+							Else
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:75%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								{%
+							EndIf
+						EndIf
+						%}
+						<div class="{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} dkdiv dkgradient {%:=dkhovergradient%} {%:=dkhoverfont%} {%:=dkhoverborder%} dkradius {%:=CurrentADC.PropValue("dkshadow")%} {%:=dkhoverdropshadow%} {%:=dkselecteddropshadow%}" style="cursor:pointer;">{%:=CurrentADC.PropValue("DKtext")%}</div>
+						{%
+					ElseIf CurrentQuestion.AvailableResponses.Count = 2 Then
+						%}
+						<p style="width:100%;height:100%;text-align:center;">It is not possible to turn on DK answer when the question only has two answers.</p>
+						{%
+					EndIf
+				ElseIf turnOnDK = "dkoff" Then
+					If CurrentQuestion.AvailableResponses.Count = 5 Then
+						dim smilewidth = 10*CurrentADC.PropValue("smileycoef").toNumber()
+							If hasparentloop = 1 Then
+								If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+									%}
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:22.5%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[3].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:45%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[4].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:67.5%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[5].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[5].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[5].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:90%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+									{%
+								Else
+									%}
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[5].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[5].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[5].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[4].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:22.5%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[3].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:45%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:67.5%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:90%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+									{%
+								EndIf
+							Else
+								If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+									%}
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:22.5%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[3].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:45%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[4].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:67.5%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[5].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[5].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[5].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:90%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+									{%
+								Else
+									%}
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[5].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[5].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[5].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[4].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:22.5%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[3].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:45%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:67.5%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+									<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:90%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+									{%
+								EndIf	
+							EndIf
+					ElseIf CurrentQuestion.AvailableResponses.Count = 4 Then
+						smilewidth = 12.5*CurrentADC.PropValue("smileycoef").toNumber()
+						If hasparentloop = 1 Then
+							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:29.2%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:58.4%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[4].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:87.5%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								{%
+							Else
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[4].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:29.2%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:58.4%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:87.5%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								{%
+							EndIf
+						Else
+							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:29.2%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:58.4%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[4].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:87.5%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								{%
+							Else
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[4].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[4].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:29.2%;" src="{%:=CurrentADC.URLTo("static/Greyhappy.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:58.4%;" src="{%:=CurrentADC.URLTo("static/Greysad.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:87.5%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								{%
+							EndIf
+						EndIf	
+					ElseIf CurrentQuestion.AvailableResponses.Count = 3 Then
+						smilewidth = 16.7*CurrentADC.PropValue("smileycoef").toNumber()
+						If hasparentloop = 1 Then
+							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:41.65%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:83.3%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								{%
+							Else
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:41.65%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:83.3%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								{%
+							EndIf
+						Else
+							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:41.65%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:83.3%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								{%
+							Else
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[3].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[3].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:41.65%;" src="{%:=CurrentADC.URLTo("static/Greysmile_1.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:83.3%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								{%
+							EndIf
+						EndIf
+					ElseIf CurrentQuestion.AvailableResponses.Count = 2 Then
+						smilewidth = 25*CurrentADC.PropValue("smileycoef").toNumber()
+						If hasparentloop = 1 Then
+							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:75%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								{%
+							Else
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:75%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								{%
+							EndIf
+						Else
+							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:75%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								{%
+							Else
+								%}
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[2].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[2].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[2].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:=CurrentADC.URLTo("static/Greylove.png")%}" />
+								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
+								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:75%;" src="{%:=CurrentADC.URLTo("static/Greysmile_2.png")%}" />
+								{%
+							EndIf
+						EndIf
+					EndIf		
+				EndIf
+				%}
+		 
+			</div>
+		
+			{%
+			If hasparentloop = 1 Then
+				inputName = CurrentQuestion.Iteration(increment).InputName()
+				inputValue = CurrentQuestion.Iteration(increment).InputValue()
+			EndIf
+			%}
+		{%	
+		EndIf
+		%}
+		
+		{%
+		Dim par = CurrentQuestion.ParentLoop.AvailableResponses
+		Dim j = increment
+			inputName = CurrentQuestion.Iteration(par[j].Index).InputName()
+			inputId   = inputName
+			inputValue = CurrentQuestion.Iteration(par[j].Index).InputValue()
+		%}
+		<input type="hidden" id="{%= inputId %}" name="{%= inputName %}" class="empty" value="{%= inputValue %}"  />
+	
+	</div>
+	{%
+	EndIf	
+	%}
+
+{%
+Next
+%}
+			

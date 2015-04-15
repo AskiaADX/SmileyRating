@@ -1,0 +1,43 @@
+{%
+Dim useList   = (CurrentADC.PropValue("useList") = "1") ' Convert to boolean
+Dim inputName = CurrentQuestion.InputName()
+Dim inputValue
+Dim caption
+
+Dim i
+
+If useList Then %}
+    <select name="{%= inputName %}">
+        <option value=""></option>
+    {% 
+    Dim attrSelected
+    For i = 1 To CurrentQuestion.AvailableResponses.Count 
+        attrSelected = On(CurrentQuestion.AvailableResponses[i].IsSelected, "selected=\"selected\"", "")
+        inputValue   = CurrentQuestion.AvailableResponses[i].InputValue()
+        caption      = CurrentQuestion.AvailableResponses[i].Caption
+        %}
+        <option value="{%= inputValue %}" {%:= attrSelected %}>{%= caption %}</option>
+    {% Next %}
+    </select>
+{% Else %}
+
+    <table cellpadding="5" cellspacing="0" border="0">
+        {% 
+        Dim inputId
+        Dim attrChecked
+        For i = 1 To CurrentQuestion.AvailableResponses.Count 
+            inputId     = inputName + "_" + i
+            attrChecked = On(CurrentQuestion.AvailableResponses[i].IsSelected, "checked=\"checked\"", "")
+            inputValue  = CurrentQuestion.AvailableResponses[i].InputValue()
+            caption     = CurrentQuestion.AvailableResponses[i].Caption
+        %}
+        <tr>
+            <td>
+                <input type="radio" name="{%= inputName %}" id="{%= inputId %}" value="{%= inputValue %}" {%:= attrChecked %} />
+            </td><td>
+            	<label for="{%= inputId %}">{%= caption %}</label>
+            </td>
+        </tr>
+        {% Next %}
+    </table>
+{% EndIf %}
