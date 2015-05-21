@@ -58,7 +58,7 @@
 	dim image4 = ""
 	dim image5 = ""
 
-	If CurrentADC.PropValue("smileyset") = "flat" Then
+	If (CurrentADC.PropValue("smileyset") = "flat") Then
 		image1 = CurrentADC.URLTo("static/Greyflat-smiley-adc-unhappy-plus.png")
 		image2 = CurrentADC.URLTo("static/Greyflat-smiley-adc-unhappy.png")
 		image3 = CurrentADC.URLTo("static/Greyflat-smiley-adc-medium.png")

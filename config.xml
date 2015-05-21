@@ -64,15 +64,15 @@
             <content fileName="Greysmile_2.png" type="image" mode="static" position="none" />
             <content fileName="Greyhappy.png" type="image" mode="static" position="none" />
             <content fileName="flat-smiley-adc-unhappy.png" type="image" mode="static" position="none" />
-            <content fileName="flat-smiley-adc-unhappy_grey.png" type="image" mode="static" position="none" />
+            <content fileName="Greyflat-smiley-adc-unhappy.png" type="image" mode="static" position="none" />
             <content fileName="flat-smiley-adc-unhappy-plus.png" type="image" mode="static" position="none" />
-            <content fileName="flat-smiley-adc-unhappy-plus_grey.png" type="image" mode="static" position="none" />
+            <content fileName="Greyflat-smiley-adc-unhappy-plus.png" type="image" mode="static" position="none" />
             <content fileName="flat-smiley-adc-medium.png" type="image" mode="static" position="none" />
-            <content fileName="flat-smiley-adc-medium_grey.png" type="image" mode="static" position="none" />
+            <content fileName="Greyflat-smiley-adc-medium.png" type="image" mode="static" position="none" />
             <content fileName="flat-smiley-adc-happy.png" type="image" mode="static" position="none" />
-            <content fileName="flat-smiley-adc-happy_grey.png" type="image" mode="static" position="none" />
+            <content fileName="Greyflat-smiley-adc-happy.png" type="image" mode="static" position="none" />
             <content fileName="flat-smiley-adc-happy-plus.png" type="image" mode="static" position="none" />
-            <content fileName="flat-smiley-adc-happy-plus_grey.png" type="image" mode="static" position="none" />
+            <content fileName="Greyflat-smiley-adc-happy-plus.png" type="image" mode="static" position="none" />
         </output>
     </outputs>
     <properties>
