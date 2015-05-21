@@ -247,7 +247,7 @@
         <category id="backgroundBorder" name="Background Border">
             <property id="backgroundBorderColor" mode="static" type="color" xsi:type="standardProperty" name="Background Border Colour">
                 <description>
-                    <![Background border colour[]]>
+                    <![CDATA[Background border colour[]]>
                 </description>
                 <value>161,167,173</value>
             </property>
