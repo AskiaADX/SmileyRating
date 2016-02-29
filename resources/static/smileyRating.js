@@ -435,7 +435,10 @@
 			$(".bigsmile", $(".smileysSection")).css({top:-((answerHeight/2) + borderSize + (imgBigSize/2))+'px'});
 		}
 
-
+		function setImgWidth($adcAnswers){
+			var imgPercentWidth = 100/($(".smile", $adcAnswers).length*2);
+			$("img", $(".smileysSection")).css({width:imgPercentWidth*parseFloat(options.smileycoef)+'%'});
+		}
 
 		function resizeToScreen(){
 			sizeCoef = 1349/$( window ).width();
@@ -471,6 +474,7 @@
 			}
 			var resizeTimer = $.timer(function() {
 				resizeToScreen();
+				setImgWidth($adcAnswers);
 				setImgTop($adcAnswers);
 				setDKposition($adcAnswers,isInLoop);
 				resizeTimer.stop();

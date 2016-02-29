@@ -7,12 +7,17 @@
   <info>
     <name>adc2-smileyrating</name>
     <guid>0d52bc75-6ad2-4512-835a-0cc6b73b75ea</guid>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
     <date>2015-05-13</date>
-    <description><![CDATA[1.0.6 - Fixed max width being forced outside of adc
-1.0.7 - Added new set of flat smiley icons and possibility of switching between both sets]]></description>
+    <description><![CDATA[
+        1.0.6 - Fixed max width being forced outside of adc
+        1.0.7 - Added new set of flat smiley icons and possibility of switching between both sets
+        1.0.8 - Udpate to jquery 1.11.1 and fixed a problem of img size on win 10]]></description>
     <company>Askia SAS</company>
-    <author><![CDATA[Timothee Plante <timothee@askia.com> Paul Nevin <paul@askia.com>]]></author>
+    <author><![CDATA[
+        Timothee Plante <timothee@askia.com>
+        Paul Nevin <paul@askia.com>
+        Jerome Duparc <jeromed@askia.com>]]></author>
     <site>www.askia.com</site>
     <helpURL>https://support.askia.com/hc/en-us/articles/200958012-adc-2-0-Smiley-Rating</helpURL>
     <categories>
@@ -38,7 +43,7 @@
     <output id="standard">
       <description><![CDATA[ Output use when javascript is enable]]></description>
       <condition><![CDATA[Browser.Support("javascript")]]></condition>
-      <content fileName="jquery-1.8.3.min.js" type="javascript" mode="share" position="head" />
+      <content fileName="jquery-1.11.1.min.js" type="javascript" mode="share" position="head" />
       <content fileName="jquery.timer.js" type="javascript" mode="share" position="head" />
       <content fileName="smileyRating.css" type="css" mode="dynamic" position="head" />
       <content fileName="default.html" type="html" mode="dynamic" position="placeholder" />
