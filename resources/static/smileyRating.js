@@ -459,8 +459,8 @@
 				if ( $smile.attr("class").indexOf("bigsmile") != -1 ) {
 					$smile = $($(".smile",$($smileysSections[index]))[1]);
 				}
-				$(".answers",$($smileysSections[index])).css({'height':backgroundHeightCoef*$smile.height()+'px'})
-				$(".smileysSection",$($smileysSections[index])).css({'height':backgroundHeightCoef*$smile.height()+'px'})
+				$(".answers",$($smileysSections[index])).css({height:backgroundHeightCoef*$smile.height()+'px'});
+				$(".smileysSection",$($smileysSections[index])).css({height:backgroundHeightCoef*$smile.height()+'px'});
 			}
 		}
 
@@ -474,7 +474,6 @@
 			}
 			var resizeTimer = $.timer(function() {
 				resizeToScreen();
-				setImgWidth($adcAnswers);
 				setImgTop($adcAnswers);
 				setDKposition($adcAnswers,isInLoop);
 				resizeTimer.stop();
@@ -530,6 +529,7 @@
 
 		function start($adcAnswers){
 			resizeToScreen();
+			setImgWidth($adcAnswers);
 			setImgTop($adcAnswers);
 			fixImgId($adcAnswers,1);
 			fixImgPosition($adcAnswers);
@@ -546,6 +546,7 @@
 				var $adcAnswers = $("#smileys"+indexLoop);
 
 				resizeToScreen();
+				setImgWidth($adcAnswers);
 				setImgTop($adcAnswers);
 				fixImgId($adcAnswers,indexLoop);
 				fixImgPosition($adcAnswers);
