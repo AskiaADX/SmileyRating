@@ -9,7 +9,6 @@ ehthumbs.db
 Thumbs.db
 .com.apple.timemachine.supported
 .idea
-.settings
 .adxstudio
-.adxstudio/*
-.adxstudio/workspace.json
+.settings
+pxm

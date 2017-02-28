@@ -1,7 +1,8 @@
-﻿/* standard.js */
+/* standard.js */
 $(document).ready(function(){
 	window.onload = function (){
 		$('#adc_{%= CurrentADC.InstanceId %}').adcSmileyrating({
+          	InstanceId : {%= CurrentADC.InstanceId %},
 			backgroundBorderSize : '{%:=CurrentADC.PropValue("backgroundBorderSize")%}',
 			smileyminwidth : '{%:=CurrentADC.PropValue("smileyminwidth")%}',
 			smileybigcoef : '{%:=CurrentADC.PropValue("smileybigcoef")%}',

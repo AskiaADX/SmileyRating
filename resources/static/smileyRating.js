@@ -1,5 +1,3 @@
-//$('#TEST').text('POURQUOI');
-//document.getElementById('TEST').innerText = 'AHBON';
 (function (window, $) {
 
 	"use strict";
@@ -89,6 +87,9 @@
 			$img.addClass("bigsmile");
 			$adcAnswers.find('input').val(""+$img.attr("class").split("answer")[1].split("answer")[0]);
 			$adcAnswers.find('input').attr("class",$img[0].id);
+            if (window.askia) {
+                askia.triggerAnswer();
+            }
 		}
 		
 		
@@ -203,6 +204,9 @@
 		function fatDK($element, $adcAnswers){
 			$element.attr("class",$element.attr("class")+" dkselected");
 			$adcAnswers.find('input').val($element.attr("class").split(" ")[0]);
+            if (window.askia) {
+                askia.triggerAnswer();
+            }
 			$adcAnswers.find('input').attr("class",$element[0].id);
 			autoForward();
 		}
@@ -292,17 +296,6 @@
 
 		function alignDK(dkAlignment,$adcAnswers,dkPadding,dkborderThickness){
 			if ( options.turnOnDK == "dkon" ) {
-				var dkfontsize = options.dkfontSize;
-				if ( dkfontsize.indexOf("px") != -1 ) {
-					dkfontsize = parseInt(dkfontsize);
-				}
-				else if ( dkfontsize.indexOf("em") != -1 ) {
-					dkfontsize = parseInt(dkfontsize)*14;
-				}
-				else if ( dkfontsize.indexOf("%") != -1 ) {
-					dkfontsize = parseInt(dkfontsize)*14/100;
-				}
-				$('.dkdiv').css({"font-size":dkfontsize+'px'});
 				if ( dkAlignment == "right" ) {
 					$('.dkdiv').css({right:'0px'});
 				}
@@ -321,8 +314,8 @@
 			if ( backgroundHeight < smileyBigHeight ) {
 				$('.dkdiv').css({top:((smileyBigHeight-backgroundHeight)/2+2+borderThickness+dkPadding)+'px'});
 				$('.answerContent').css({paddingBottom:((smileyBigHeight-backgroundHeight)/2+2+borderThickness+dkPadding*2+$('.dkdiv').height())+'px'});
-				$('.question').css({margin:0+"px"});
-				$('.question').css({"padding-bottom":((smileyBigHeight-backgroundHeight)/2+2+borderThickness+additionnalPadding)+'px'});
+				$('.smileyratingquestion').css({margin:0+"px"});
+				$('.smileyratingquestion').css({"padding-bottom":((smileyBigHeight-backgroundHeight)/2+2+borderThickness+additionnalPadding)+'px'});
 				if ( !isInLoop ) {
 					$('.adc-default').css({"padding-top":((smileyBigHeight-backgroundHeight)/2+2+borderThickness+additionnalPadding)+'px'});
 				}
@@ -393,6 +386,9 @@
 				if ( (text == val) && !alreadyFat) {
 					$adcAnswers.find('input').val($("span",$adcAnswers).attr("class"));
 					$adcAnswers.find('input').attr("class",$("span",$adcAnswers)[0].id);
+                    if (window.askia) {
+                        askia.triggerAnswer();
+                    }
 				}
 			}
 		}
@@ -469,7 +465,7 @@
 		function resizer($adcAnswers){
 			var resizeCounter = 1;
 			var isInLoop = false;
-			if ( $(".question").length > 0 ) {
+			if ( $(".smileyratingquestion").length > 0 ) {
 				isInLoop = true;
 			}
 			var resizeTimer = $.timer(function() {

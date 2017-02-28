@@ -1,29 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<control  xmlns="http://www.askia.com/ADCSchema"
+<control  xmlns="http://www.askia.com/2.1.0/ADCSchema"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://www.askia.com/ADCSchema http://www.askia.com/Downloads/dev/schemas/adc2.0/Config.xsd"
-          version="2.0.0"
-          askiaCompat="5.3.3">
+          xsi:schemaLocation="http://www.askia.com/2.1.0/ADCSchema https://raw.githubusercontent.com/AskiaADX/ADXSchema/2.1.0/ADCSchema.xsd"
+          version="2.1.0"
+          askiaCompat="5.4.2">
   <info>
-    <name>adc2-smileyrating</name>
+    <name>SmileyRating</name>
     <guid>0d52bc75-6ad2-4512-835a-0cc6b73b75ea</guid>
-    <version>1.0.8</version>
+    <version>2.0.0</version>
     <date>2015-05-13</date>
-    <description><![CDATA[
-        1.0.6 - Fixed max width being forced outside of adc
+    <description><![CDATA[1.0.6 - Fixed max width being forced outside of adc
         1.0.7 - Added new set of flat smiley icons and possibility of switching between both sets
-        1.0.8 - Udpate to jquery 1.11.1 and fixed a problem of img size on win 10]]></description>
+        1.0.8 - Udpate to jquery 1.11.1 and fixed a problem of img size on win 10
+		2.0.0 - Theme implementation]]></description>
     <company>Askia SAS</company>
-    <author><![CDATA[
-        Timothee Plante <timothee@askia.com>
-        Paul Nevin <paul@askia.com>
-        Jerome Duparc <jeromed@askia.com>]]></author>
+    <author><![CDATA[Timothee Plante <timothee@askia.com>        Paul Nevin <paul@askia.com>        Jerome Duparc <jeromed@askia.com>]]></author>
     <site>www.askia.com</site>
     <helpURL>https://support.askia.com/hc/en-us/articles/200958012-adc-2-0-Smiley-Rating</helpURL>
     <categories>
       <category>General</category>
     </categories>
-    <style width="400" height="300" />
     <constraints>
       <constraint on="questions" single="true" multiple="false" numeric="false" date="false" open="false" chapter="false" requireParentLoop="false" />
       <constraint on="controls" label="true" textbox="true" responseblock="true" checkbox="false" listbox="false" radiobutton="false" />
@@ -97,26 +93,20 @@
                 ]]></description>
         <value><![CDATA[500px]]></value>
       </property>
-      <property xsi:type="standardProperty" id="controlpadding" name="Control Padding" type="string" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
-        <value><![CDATA[10px 0px]]></value>
+      <property xsi:type="standardProperty" id="controlpadding" name="Control Padding" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[]]></description>
+        <value><![CDATA[0.5em 0]]></value>
       </property>
-      <property xsi:type="standardProperty" id="animate" name="Animate" type="string" mode="static">
-        <description><![CDATA[
-                    Activate or deactivate the animation
-                ]]></description>
+      <property xsi:type="standardProperty" id="animate" name="Animate" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[Activate or deactivate the animation]]></description>
         <value><![CDATA[yes]]></value>
         <options>
           <option value="yes" text="Yes" />
           <option value="no" text="No" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="animateSpeed" name="Animation Speed" type="number" mode="static">
-        <description><![CDATA[
-                    Set the animation speed
-                ]]></description>
+      <property xsi:type="standardProperty" id="animateSpeed" name="Animation Speed" type="number" mode="static" require="false" visible="false">
+        <description><![CDATA[Set the animation speed]]></description>
         <value><![CDATA[200]]></value>
         <options>
           <option value="0" text="0ms" />
@@ -128,10 +118,8 @@
           <option value="1500" text="1500ms" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="autoForward" name="Auto Forward" type="string" mode="static">
-        <description><![CDATA[
-                    Whether the question continues to the next automatically if a single choice question
-                ]]></description>
+      <property xsi:type="standardProperty" id="autoForward" name="Auto Forward" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Whether the question continues to the next automatically if a single choice question]]></description>
         <value><![CDATA[false]]></value>
         <options>
           <option value="true" text="Yes" />
@@ -140,99 +128,66 @@
       </property>
     </category>
     <category id="fallback" name="Fallback">
-      <property xsi:type="standardProperty" id="isinloop" name="Is In Loop" type="string" mode="static">
-        <description><![CDATA[ ]]></description>
+      <property xsi:type="standardProperty" id="isinloop" name="Is In Loop" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[]]></description>
         <value><![CDATA[no]]></value>
         <options>
           <option value="yes" text="Yes" />
           <option value="no" text="No" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="useList" name="Use a selection list" type="boolean" mode="static">
-        <description><![CDATA[
-                    
-                    Use a select list to enumerate all available responses.
+      <property xsi:type="standardProperty" id="useList" name="Use a selection list" type="boolean" mode="static" require="false" visible="false">
+        <description><![CDATA[Use a select list to enumerate all available responses.
                     This option works with closed and numeric questions.
-                    For numeric question, the range between bounds should be inferior than 20. It take in account the step option.
-                    
-                ]]></description>
-        <value><![CDATA[false]]></value>
+                    For numeric question, the range between bounds should be inferior than 20. It take in account the step option.]]></description>
+        <value><![CDATA[0]]></value>
       </property>
     </category>
     <category id="smileys" name="Smileys">
-      <property xsi:type="standardProperty" id="smileyset" name="Smiley icon set" type="string" mode="static">
-        <description><![CDATA[
-                    Allows you to change the icon set used for the smiley control
-                ]]></description>
+      <property xsi:type="standardProperty" id="smileyset" name="Smiley icon set" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Allows you to change the icon set used for the smiley control]]></description>
         <value><![CDATA[standard]]></value>
         <options>
           <option value="standard" text="Standard set" />
           <option value="flat" text="Flat set" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="smileysorientation" name="Smileys Orientation" type="string" mode="static">
-        <description><![CDATA[
-                    Change the orientation of the smileys
-                ]]></description>
+      <property xsi:type="standardProperty" id="smileysorientation" name="Smileys Orientation" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Change the orientation of the smileys]]></description>
         <value><![CDATA[lefttoright]]></value>
         <options>
           <option value="lefttoright" text="Left to Right" />
           <option value="righttoleft" text="Right to Left" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="smileycoef" name="Smiley Size Coef" type="number" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
+      <property xsi:type="standardProperty" id="smileycoef" name="Smiley Size Coef" type="number" mode="static" require="false" visible="true">
+        <description><![CDATA[]]></description>
         <value><![CDATA[1]]></value>
       </property>
-      <property xsi:type="standardProperty" id="smileybigcoef" name="Smiley Big Size Coef" type="number" mode="static">
-        <description><![CDATA[
-                    Set the maximum size of the smiley
-                ]]></description>
+      <property xsi:type="standardProperty" id="smileybigcoef" name="Smiley Big Size Coef" type="number" mode="static" require="false" visible="true">
+        <description><![CDATA[Set the maximum size of the smiley]]></description>
         <value><![CDATA[1.5]]></value>
       </property>
-      <property xsi:type="standardProperty" id="smileyminwidth" name="Smiley Min Size" type="string" mode="static">
-        <description><![CDATA[
-                    Set the minimum size of the smiley
-                ]]></description>
+      <property xsi:type="standardProperty" id="smileyminwidth" name="Smiley Min Size" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Set the minimum size of the smiley]]></description>
         <value><![CDATA[30px]]></value>
       </property>
     </category>
     <category id="backgroundBar" name="Background Bar">
-      <property xsi:type="standardProperty" id="controlheight" name="Background Height" type="string" mode="static">
-        <description><![CDATA[
-                    Background bar height
-                ]]></description>
+      <property xsi:type="standardProperty" id="controlheight" name="Background Height" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Background bar height]]></description>
         <value><![CDATA[30px]]></value>
       </property>
-      <property xsi:type="standardProperty" id="shadow" name="Drop Shadow" type="string" mode="static">
-        <description><![CDATA[
-                    Set the drop-shadow type
-                ]]></description>
-        <value><![CDATA[noshadow]]></value>
-        <options>
-          <option value="noshadow" text="None" />
-          <option value="shadowoutside" text="Outside" />
-          <option value="shadowinside" text="Inside" />
-        </options>
+      <property xsi:type="standardProperty" id="primaryColor" name="Primary Colour" type="color" mode="static" require="false" visible="true">
+        <description><![CDATA[Primary colour of the item]]></description>
+        <value><![CDATA[255,0,0]]></value>
       </property>
-      <property xsi:type="standardProperty" id="primaryColor" name="Primary Colour" type="color" mode="static">
-        <description><![CDATA[
-                    Primary colour of the item
-                ]]></description>
-        <value><![CDATA[192,192,192]]></value>
+      <property xsi:type="standardProperty" id="secondaryColor" name="Secondary Colour" type="color" mode="static" require="false" visible="true">
+        <description><![CDATA[Secondary colour of the item]]></description>
+        <value><![CDATA[0,255,0]]></value>
       </property>
-      <property xsi:type="standardProperty" id="secondaryColor" name="Secondary Colour" type="color" mode="static">
-        <description><![CDATA[
-                    Secondary colour of the item
-                ]]></description>
-        <value><![CDATA[128,128,128]]></value>
-      </property>
-      <property xsi:type="standardProperty" id="gradient" name="Gradient Type" type="string" mode="static">
-        <description><![CDATA[
-                    Set the gradient type
-                ]]></description>
+      <property xsi:type="standardProperty" id="gradient" name="Gradient Type" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Set the gradient type]]></description>
         <value><![CDATA[gradientHorizontal]]></value>
         <options>
           <option value="gradientHorizontal" text="Horizontal" />
@@ -242,30 +197,16 @@
       </property>
     </category>
     <category id="backgroundBorder" name="Background Border">
-      <property xsi:type="standardProperty" id="backgroundBorderColor" name="Background Border Colour" type="color" mode="static">
-        <description><![CDATA[
-                    Background border colour[
-                ]]></description>
-        <value><![CDATA[161,167,173]]></value>
+      <property xsi:type="standardProperty" id="backgroundBorderColor" name="Background Border Colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[Background border colour[]]></description>
+        <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="backgroundBorderSize" name="Background Border Thickness" type="number" mode="static">
-        <description><![CDATA[
-                    Background border size (in px)
-                ]]></description>
-        <value><![CDATA[1]]></value>
-        <options>
-          <option value="0" text="None" />
-          <option value="1" text="1px" />
-          <option value="2" text="2px" />
-          <option value="3" text="3px" />
-          <option value="4" text="4px" />
-          <option value="5" text="5px" />
-        </options>
+      <property xsi:type="standardProperty" id="backgroundBorderSize" name="Border Thickness" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[Border width]]></description>
+        <value><![CDATA[{%= Theme.BorderWidth %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="backgroundBorderStyle" name="Background Border Style" type="string" mode="static">
-        <description><![CDATA[
-                    Set the border style of the background
-                ]]></description>
+      <property xsi:type="standardProperty" id="backgroundBorderStyle" name="Border Style" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[Set the border style]]></description>
         <value><![CDATA[solid]]></value>
         <options>
           <option value="solid" text="Solid" />
@@ -275,21 +216,9 @@
           <option value="none" text="None" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="borderRadius" name="Border Radius" type="number" mode="static">
-        <description><![CDATA[
-                    Set the border radius (in px)
-                ]]></description>
-        <value><![CDATA[2]]></value>
-        <options>
-          <option value="0" text="0" />
-          <option value="2" text="2" />
-          <option value="5" text="5" />
-          <option value="10" text="10" />
-          <option value="15" text="15" />
-          <option value="20" text="20" />
-          <option value="25" text="25" />
-          <option value="30" text="30" />
-        </options>
+      <property xsi:type="standardProperty" id="borderRadius" name="Border Radius" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[Set the border radius (in px)]]></description>
+        <value><![CDATA[{%= Theme.BorderRadius %}]]></value>
       </property>
     </category>
     <category id="loop" name="Looped Questions">
@@ -304,28 +233,20 @@
           <option value="left" text="Left" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="captionPadding" name="Caption Padding" type="string" mode="static">
-        <description><![CDATA[
-                    Set the padding of the captions
-                ]]></description>
-        <value><![CDATA[10px 0]]></value>
+      <property xsi:type="standardProperty" id="captionPadding" name="Caption Padding" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[Set the padding of the captions]]></description>
+        <value><![CDATA[0.5em 0]]></value>
       </property>
-      <property xsi:type="standardProperty" id="captionWidth" name="Caption Width" type="string" mode="static">
-        <description><![CDATA[
-                    Set the width of the captions
-                ]]></description>
+      <property xsi:type="standardProperty" id="captionWidth" name="Caption Width" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Set the width of the captions]]></description>
         <value><![CDATA[auto]]></value>
       </property>
-      <property xsi:type="standardProperty" id="fontColor" name="Font Colour" type="color" mode="static">
-        <description><![CDATA[
-                    Set the font colour for the captions
-                ]]></description>
-        <value><![CDATA[0,0,0]]></value>
+      <property xsi:type="standardProperty" id="fontColor" name="Font Colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[Set the font colour for the captions]]></description>
+        <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="fontStyle" name="Font Style" type="string" mode="static">
-        <description><![CDATA[
-                    Set the font style for the captions
-                ]]></description>
+      <property xsi:type="standardProperty" id="fontStyle" name="Font Style" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[Set the font style for the captions]]></description>
         <value><![CDATA[normal]]></value>
         <options>
           <option value="normal" text="Normal" />
@@ -333,17 +254,13 @@
           <option value="oblique" text="Oblique" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="fontSize" name="Font Size" type="string" mode="static">
-        <description><![CDATA[
-                    Set the font size for the captions (in px)
-                ]]></description>
-        <value><![CDATA[14px]]></value>
+      <property xsi:type="standardProperty" id="fontSize" name="Font Size" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[Set the font size for the captions (in px)]]></description>
+        <value><![CDATA[{%= Theme.NormalFS %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="imageAlignment" name="Image Alignment" type="string" mode="static">
-        <description><![CDATA[
-                    Set the image alignment
-                ]]></description>
-        <value><![CDATA[right]]></value>
+      <property xsi:type="standardProperty" id="imageAlignment" name="Image Alignment" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Set the image alignment]]></description>
+        <value><![CDATA[left]]></value>
         <options>
           <option value="right" text="Right" />
           <option value="left" text="Left" />
@@ -351,23 +268,17 @@
       </property>
     </category>
     <category id="labelImage" name="Label Image">
-      <property xsi:type="standardProperty" id="imagePadding" name="Image Padding" type="string" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
+      <property xsi:type="standardProperty" id="imagePadding" name="Image Padding" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[]]></description>
         <value><![CDATA[2px]]></value>
       </property>
-      <property xsi:type="standardProperty" id="maxImageWidth" name="Max Image Width" type="string" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
-        <value><![CDATA[100]]></value>
+      <property xsi:type="standardProperty" id="maxImageWidth" name="Max Image Width" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[]]></description>
+        <value><![CDATA[100px]]></value>
       </property>
-      <property xsi:type="standardProperty" id="maxImageHeight" name="Max Image Height" type="string" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
-        <value><![CDATA[100]]></value>
+      <property xsi:type="standardProperty" id="maxImageHeight" name="Max Image Height" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[]]></description>
+        <value><![CDATA[100px]]></value>
       </property>
       <property xsi:type="standardProperty" id="forceImageSize" name="Force Image Size" type="string" mode="static">
         <description><![CDATA[
@@ -383,86 +294,44 @@
       </property>
     </category>
     <category id="tooltips" name="Tool Tips">
-      <property xsi:type="standardProperty" id="showTooltips" name="Show tooltips" type="string" mode="static">
-        <description><![CDATA[
-                    Show tooltips when hovering the smileys
-                ]]></description>
+      <property xsi:type="standardProperty" id="showTooltips" name="Show tooltips" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Show tooltips when hovering the smileys]]></description>
         <value><![CDATA[yes]]></value>
         <options>
           <option value="no" text="No" />
           <option value="yes" text="Yes" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="tooltipFontSize" name="Tooltip font size" type="string" mode="static">
-        <description><![CDATA[
-                    The font size for the tooltip
-                ]]></description>
-        <value><![CDATA[14px]]></value>
+      <property xsi:type="standardProperty" id="tooltipFontSize" name="Tooltip font size" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The font size for the tooltip]]></description>
+        <value><![CDATA[{%= Theme.NormalFS %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="tooltipFontColour" name="Tooltip font colour" type="color" mode="static">
-        <description><![CDATA[
-                    The font colour for the tooltip
-                ]]></description>
-        <value><![CDATA[255,255,255]]></value>
+      <property xsi:type="standardProperty" id="tooltipFontColour" name="Tooltip font colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The font colour for the tooltip]]></description>
+        <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="tooltipCurvedCorners" name="Tooltip curved corners" type="string" mode="static">
-        <description><![CDATA[
-                    Rounded corners on tooltips
-                ]]></description>
-        <value><![CDATA[2px]]></value>
-        <options>
-          <option value="0px" text="0" />
-          <option value="2px" text="2" />
-          <option value="5px" text="5" />
-          <option value="10px" text="10" />
-          <option value="15px" text="15" />
-          <option value="20px" text="20" />
-          <option value="25px" text="25" />
-          <option value="30px" text="30" />
-        </options>
+      <property xsi:type="standardProperty" id="tooltipCurvedCorners" name="Tooltip border radius" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[Border radius on tooltips]]></description>
+        <value><![CDATA[{%= Theme.BorderRadius %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="tooltipColourPrimary" name="Tooltip Colour Primary" type="color" mode="static">
-        <description><![CDATA[
-                    Primary colour of the tooltip
-                ]]></description>
-        <value><![CDATA[192,192,192]]></value>
+      <property xsi:type="standardProperty" id="tooltipColourPrimary" name="Tooltip Background Colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[Background colour of the tooltip]]></description>
+        <value><![CDATA[{%= Theme.NeutralLightColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="tooltipColourSecondary" name="Tooltip Colour Secondary" type="color" mode="static">
-        <description><![CDATA[
-                    Secondary colour of the tooltip
-                ]]></description>
-        <value><![CDATA[128,128,128]]></value>
+      <property xsi:type="standardProperty" id="tooltippadding" name="Tooltip Padding" type="string" mode="dynamic" require="false" visible="false">
+        <description><![CDATA[Set the padding of the tooltip]]></description>
+        <value><![CDATA[0.5em]]></value>
       </property>
-      <property xsi:type="standardProperty" id="tooltippadding" name="Tooltip Padding" type="string" mode="static">
-        <description><![CDATA[
-                    Set the padding of the tooltip
-                ]]></description>
-        <value><![CDATA[8px 10px]]></value>
+      <property xsi:type="standardProperty" id="tooltipBorderColour" name="Tooltip Border Colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[Tooltip border colour]]></description>
+        <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="tooltipBorderColour" name="Tooltip Border Colour" type="color" mode="static">
-        <description><![CDATA[
-                    Tooltip border colour
-                ]]></description>
-        <value><![CDATA[000,000,000]]></value>
+      <property xsi:type="standardProperty" id="tooltipBorderThickness" name="Tooltip Border Thickness" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[The thickness of the border around the tooltip]]></description>
+        <value><![CDATA[{%= Theme.BorderWidth %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="tooltipBorderThickness" name="Tooltip Border Thickness" type="string" mode="static">
-        <description><![CDATA[
-                    The thickness of the border around the tooltip
-                ]]></description>
-        <value><![CDATA[0px]]></value>
-        <options>
-          <option value="0px" text="None" />
-          <option value="1px" text="1px" />
-          <option value="2px" text="2px" />
-          <option value="3px" text="3px" />
-          <option value="4px" text="4px" />
-          <option value="5px" text="5px" />
-        </options>
-      </property>
-      <property xsi:type="standardProperty" id="tooltipBorderStyle" name="Tooltipo Border Style" type="string" mode="static">
-        <description><![CDATA[
-                    The style of the border around the tooltip
-                ]]></description>
+      <property xsi:type="standardProperty" id="tooltipBorderStyle" name="Tooltipo Border Style" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[The style of the border around the tooltip]]></description>
         <value><![CDATA[solid]]></value>
         <options>
           <option value="none" text="None" />
@@ -474,109 +343,61 @@
       </property>
     </category>
     <category id="DK" name="DK">
-      <property xsi:type="standardProperty" id="turnOnDK" name="Turn on DK question" type="string" mode="static">
-        <description><![CDATA[
-                    Activate Don't Knows
-                ]]></description>
+      <property xsi:type="standardProperty" id="turnOnDK" name="Turn on DK question" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Activate Don't Knows]]></description>
         <value><![CDATA[dkoff]]></value>
         <options>
           <option value="dkoff" text="No" />
           <option value="dkon" text="Yes" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="dkAlignment" name="DK Alignment" type="string" mode="static">
-        <description><![CDATA[
-                    Alignment of Don't Knows
-                ]]></description>
-        <value><![CDATA[right]]></value>
+      <property xsi:type="standardProperty" id="dkAlignment" name="DK Alignment" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Alignment of Don't Knows]]></description>
+        <value><![CDATA[center]]></value>
         <options>
           <option value="right" text="Right" />
           <option value="center" text="Center" />
           <option value="left" text="Left" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="DKtext" name="DK Text" type="string" mode="static">
-        <description><![CDATA[
-                    Text for Don't Knows
-                ]]></description>
+      <property xsi:type="standardProperty" id="DKtext" name="DK Text" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[Text for Don't Knows]]></description>
         <value><![CDATA[Don't Know]]></value>
       </property>
-      <property xsi:type="standardProperty" id="DKpadding" name="DK Text Padding" type="string" mode="static">
-        <description><![CDATA[
-                    Text padding for Don't knows
-                ]]></description>
-        <value><![CDATA[5px]]></value>
+      <property xsi:type="standardProperty" id="DKpadding" name="DK Text Padding" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[Text padding for Don't knows]]></description>
+        <value><![CDATA[0.3em]]></value>
       </property>
-      <property xsi:type="standardProperty" id="DKmargin" name="DK Margin" type="string" mode="static">
-        <description><![CDATA[
-                    Margin for Don't knows
-                ]]></description>
-        <value><![CDATA[0 0 0 0px]]></value>
+      <property xsi:type="standardProperty" id="DKmargin" name="DK Margin" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[Margin for Don't knows]]></description>
+        <value><![CDATA[0]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dkprimaryColor" name="DK Primary Colour" type="color" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[247,247,247]]></value>
+      <property xsi:type="standardProperty" id="dkprimaryColor" name="DK Background Colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[DK Background Color]]></description>
+        <value><![CDATA[{%= Theme.NeutralLightColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dksecondaryColor" name="DK Secondary Colour" type="color" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[247,247,247]]></value>
+      <property xsi:type="standardProperty" id="dkfontColor" name="DK Font Colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[]]></description>
+        <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dkfontColor" name="DK Font Colour" type="color" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[68,68,68]]></value>
+      <property xsi:type="standardProperty" id="dkfontSize" name="DK Font Size" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[]]></description>
+        <value><![CDATA[{%= Theme.NormalFS %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dkfontSize" name="DK Font Size" type="string" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
-        <value><![CDATA[14px]]></value>
+      <property xsi:type="standardProperty" id="dkborderRadius" name="DK Border Radius" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[DK Border radius]]></description>
+        <value><![CDATA[{%= Theme.BorderRadius %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dkborderRadius" name="Border Radius" type="number" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
-        <value><![CDATA[2]]></value>
-        <options>
-          <option value="0" text="0" />
-          <option value="2" text="2" />
-          <option value="5" text="5" />
-          <option value="10" text="10" />
-          <option value="15" text="15" />
-          <option value="20" text="20" />
-          <option value="25" text="25" />
-          <option value="30" text="30" />
-        </options>
+      <property xsi:type="standardProperty" id="dkborderColor" name="DK Border Colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[DK Border color]]></description>
+        <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dkborderColor" name="DK Border Colour" type="color" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[161,167,173]]></value>
+      <property xsi:type="standardProperty" id="dkborderSize" name="DK Border Thickness" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[DK Border Width]]></description>
+        <value><![CDATA[{%= Theme.BorderWidth %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dkborderSize" name="DK Border Thickness" type="number" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[1]]></value>
-        <options>
-          <option value="0" text="None" />
-          <option value="1" text="1px" />
-          <option value="2" text="2px" />
-          <option value="3" text="3px" />
-          <option value="4" text="4px" />
-          <option value="5" text="5px" />
-        </options>
-      </property>
-      <property xsi:type="standardProperty" id="dkborderStyle" name="DK Border Style" type="string" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
+      <property xsi:type="standardProperty" id="dkborderStyle" name="DK Border Style" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[DK Border style]]></description>
         <value><![CDATA[solid]]></value>
         <options>
           <option value="solid" text="Solid" />
@@ -586,89 +407,56 @@
           <option value="none" text="None" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="dkshadow" name="DK Drop Shadow" type="string" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
-        <value><![CDATA[dknoshadow]]></value>
+      <property xsi:type="standardProperty" id="dkshadow" name="DK Drop Shadow" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[DK Drop shadow]]></description>
+        <value><![CDATA[none]]></value>
         <options>
-          <option value="dknoshadow" text="Off" />
-          <option value="dkshadowoutside" text="Outside" />
-          <option value="dkshadowinside" text="Inside" />
+          <option value="0px 2px 4px rgba(0,0,0,.2)" text="On" />
+          <option value="none" text="Off" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="dkhovercolorshow" name="Show DK Hover Colour" type="string" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
+      <property xsi:type="standardProperty" id="dkhovercolorshow" name="Show DK Hover Colour" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[Show DK Hover color]]></description>
         <value><![CDATA[yes]]></value>
         <options>
           <option value="no" text="No" />
           <option value="yes" text="Yes" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="dkhoverprimaryColor" name="DK Hover Primary Colour" type="color" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[255,255,255]]></value>
+      <property xsi:type="standardProperty" id="dkhoverprimaryColor" name="DK Hover Background Colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[DK Hover Background color]]></description>
+        <value><![CDATA[{%= Theme.WhiteColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dkhoversecondaryColor" name="DK Hover Secondary Colour" type="color" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[255,255,255]]></value>
-      </property>
-      <property xsi:type="standardProperty" id="dkhoverfontshow" name="Show DK Hover Font Colour" type="string" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
-        <value><![CDATA[no]]></value>
+      <property xsi:type="standardProperty" id="dkhoverfontshow" name="Show DK Hover Font Colour" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[Show DK Hover font color]]></description>
+        <value><![CDATA[yes]]></value>
         <options>
           <option value="no" text="No" />
           <option value="yes" text="Yes" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="dkhoverfontColor" name="DK Hover Font Colour" type="color" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[0,0,0]]></value>
+      <property xsi:type="standardProperty" id="dkhoverfontColor" name="DK Hover Font Colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[DK Hover Font color]]></description>
+        <value><![CDATA[{%= Theme.BlackColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dkhoverbordershow" name="Show DK Hover Border" type="string" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
-        <value><![CDATA[no]]></value>
+      <property xsi:type="standardProperty" id="dkhoverbordershow" name="Show DK Hover Border" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[Show DK Hover border]]></description>
+        <value><![CDATA[yes]]></value>
         <options>
           <option value="no" text="No" />
           <option value="yes" text="Yes" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="dkhoverborderColor" name="DK Hover Border Colour" type="color" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[0,0,0]]></value>
+      <property xsi:type="standardProperty" id="dkhoverborderColor" name="DK Hover Border Colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[DK Hover Border color]]></description>
+        <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dkhoverborderSize" name="DK Hover Border Thickness" type="number" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[1]]></value>
-        <options>
-          <option value="0" text="None" />
-          <option value="1" text="1px" />
-          <option value="2" text="2px" />
-          <option value="3" text="3px" />
-          <option value="4" text="4px" />
-          <option value="5" text="5px" />
-        </options>
+      <property xsi:type="standardProperty" id="dkhoverborderSize" name="DK Hover Border Thickness" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[DK Hover Border Width]]></description>
+        <value><![CDATA[{%= Theme.BorderWidth %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dkhoverborderStyle" name="DK Hover Border Style" type="string" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
+      <property xsi:type="standardProperty" id="dkhoverborderStyle" name="DK Hover Border Style" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[DK Hover Border Style]]></description>
         <value><![CDATA[solid]]></value>
         <options>
           <option value="solid" text="Solid" />
@@ -678,69 +466,32 @@
           <option value="none" text="None" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="dkhovershadowshow" name="Show DK Hover Shadow" type="string" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
-        <value><![CDATA[no]]></value>
+      <property xsi:type="standardProperty" id="dkhovershadow" name="DK Hover Drop Shadow" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[DK Hover Drop Shadow]]></description>
+        <value><![CDATA[0px 2px 4px rgba(0,0,0,.2)]]></value>
         <options>
-          <option value="no" text="Off" />
-          <option value="yes" text="On" />
+          <option value="0px 2px 4px rgba(0,0,0,.2)" text="On" />
+          <option value="none" text="Off" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="dkhovershadow" name="DK Hover Drop Shadow" type="string" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
-        <value><![CDATA[dkhovernoshadow]]></value>
-        <options>
-          <option value="dkhovernoshadow" text="Off" />
-          <option value="dkhovershadowoutside" text="Outside" />
-          <option value="dkhovershadowinside" text="Inside" />
-        </options>
+      <property xsi:type="standardProperty" id="dkselectedprimaryColor" name="DK Selected Background Colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[DK Selected Background color]]></description>
+        <value><![CDATA[{%= Theme.PrimaryColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dkselectedprimaryColor" name="DK Selected Primary Colour" type="color" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[192,192,192]]></value>
+      <property xsi:type="standardProperty" id="dkselectedfontColor" name="DK Selected Font Colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[DK Selected Font Color]]></description>
+        <value><![CDATA[{%= Theme.WhiteColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dkselectedsecondaryColor" name="DK Selected Secondary Colour" type="color" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[168,168,168]]></value>
+      <property xsi:type="standardProperty" id="dkselectedborderColor" name="DK Selected Border Colour" type="color" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[DK Selected Border Color]]></description>
+        <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dkselectedfontColor" name="DK Selected Font Colour" type="color" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[255,255,255]]></value>
+      <property xsi:type="standardProperty" id="dkselectedborderSize" name="DK Selected Border Thickness" type="string" mode="dynamic" require="true" visible="false">
+        <description><![CDATA[DK Selected Border Width]]></description>
+        <value><![CDATA[{%= Theme.BorderWidth %}]]></value>
       </property>
-      <property xsi:type="standardProperty" id="dkselectedborderColor" name="DK Selected Border Colour" type="color" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[161,167,173]]></value>
-      </property>
-      <property xsi:type="standardProperty" id="dkselectedborderSize" name="DK Selected Border Thickness" type="number" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
-        <value><![CDATA[1]]></value>
-        <options>
-          <option value="0" text="None" />
-          <option value="1" text="1px" />
-          <option value="2" text="2px" />
-          <option value="3" text="3px" />
-          <option value="4" text="4px" />
-          <option value="5" text="5px" />
-        </options>
-      </property>
-      <property xsi:type="standardProperty" id="dkselectedborderStyle" name="DK Selected Border Style" type="string" mode="static">
-        <description><![CDATA[
-                    
-                ]]></description>
+      <property xsi:type="standardProperty" id="dkselectedborderStyle" name="DK Selected Border Style" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[DK Selected Border Style]]></description>
         <value><![CDATA[solid]]></value>
         <options>
           <option value="solid" text="Solid" />
@@ -750,25 +501,12 @@
           <option value="none" text="None" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="dkselectedshadowshow" name="Show DK Selected Drop Shadow" type="string" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
-        <value><![CDATA[no]]></value>
+      <property xsi:type="standardProperty" id="dkselectedshadow" name="DK Selected Drop Shadow" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[DK Selected Drop Shadow]]></description>
+        <value><![CDATA[none]]></value>
         <options>
-          <option value="no" text="Off" />
-          <option value="yes" text="On" />
-        </options>
-      </property>
-      <property xsi:type="standardProperty" id="dkselectedshadow" name="DK Selected Drop Shadow" type="string" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
-        <value><![CDATA[dkselectednoshadow]]></value>
-        <options>
-          <option value="selecteddknoshadow" text="Off" />
-          <option value="selecteddkshadowoutside" text="Outside" />
-          <option value="selecteddkshadowinside" text="Inside" />
+          <option value="0px 2px 4px rgba(0,0,0,.2)" text="On" />
+          <option value="none" text="Off" />
         </options>
       </property>
     </category>
