@@ -24,6 +24,7 @@
 		(options.controlheight = options.controlheight);
 		(options.availableResponsesCount = options.availableResponsesCount);
 		(options.autoForward = options.autoForward);
+        (options.currentQuestion = options.currentQuestion || '');
 
 		var sizeCoef;
 		var backgroundHeightCoef;
@@ -87,7 +88,10 @@
 			$img.addClass("bigsmile");
 			$adcAnswers.find('input').val(""+$img.attr("class").split("answer")[1].split("answer")[0]);
 			$adcAnswers.find('input').attr("class",$img[0].id);
-            if (window.askia) {
+            if (window.askia 
+                && window.arrLiveRoutingShortcut 
+                && window.arrLiveRoutingShortcut.length > 0
+                && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                 askia.triggerAnswer();
             }
 		}
@@ -204,7 +208,10 @@
 		function fatDK($element, $adcAnswers){
 			$element.attr("class",$element.attr("class")+" dkselected");
 			$adcAnswers.find('input').val($element.attr("class").split(" ")[0]);
-            if (window.askia) {
+            if (window.askia 
+                && window.arrLiveRoutingShortcut 
+                && window.arrLiveRoutingShortcut.length > 0
+                && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                 askia.triggerAnswer();
             }
 			$adcAnswers.find('input').attr("class",$element[0].id);
@@ -386,7 +393,10 @@
 				if ( (text == val) && !alreadyFat) {
 					$adcAnswers.find('input').val($("span",$adcAnswers).attr("class"));
 					$adcAnswers.find('input').attr("class",$("span",$adcAnswers)[0].id);
-                    if (window.askia) {
+                    if (window.askia 
+                        && window.arrLiveRoutingShortcut 
+                        && window.arrLiveRoutingShortcut.length > 0
+                        && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                         askia.triggerAnswer();
                     }
 				}

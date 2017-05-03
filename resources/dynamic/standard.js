@@ -22,7 +22,8 @@ $(document).ready(function(){
 			controlmaxwidth: '{%:=CurrentADC.PropValue("controlmaxwidth")%}',
 			controlheight : '{%:=CurrentADC.PropValue("controlheight")%}',
 			availableResponsesCount : "{%:=CurrentQuestion.AvailableResponses.Count%}",
-			autoForward: '{%:=CurrentADC.PropValue("autoForward")%}'
+			autoForward: '{%:=CurrentADC.PropValue("autoForward")%}',
+          	currentQuestion: '{%:= CurrentQuestion.Shortcut %}',
 		});
 	}
 });
