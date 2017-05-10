@@ -484,7 +484,7 @@
       </property>
       <property xsi:type="standardProperty" id="dkselectedborderColor" name="DK Selected Border Colour" type="color" mode="dynamic" require="true" visible="false">
         <description><![CDATA[DK Selected Border Color]]></description>
-        <value><![CDATA[{%= Theme.NeutralDarkColor %}]]></value>
+        <value><![CDATA[{%= Theme.PrimaryDarkColor %}]]></value>
       </property>
       <property xsi:type="standardProperty" id="dkselectedborderSize" name="DK Selected Border Thickness" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[DK Selected Border Width]]></description>
