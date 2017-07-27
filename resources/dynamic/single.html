@@ -4,12 +4,10 @@
 	Dim inputId
 	Dim inputValue
 	dim hasparentloop = CurrentQuestion.HasParentLoop
-	dim indexLoop = ""
 	Dim ar
 	dim nbElements = 1
 	If hasparentloop = 1 Then
-		indexLoop = CurrentQuestion.ParentLoop.CurrentIteration.index.toString()
-		ar = CurrentQuestion.ParentLoop.AvailableResponses
+    	ar = CurrentQuestion.ParentLoop.Answers
 	    inputName = CurrentQuestion.Iteration(ar[CurrentQuestion.ParentLoop.CurrentIteration].Index).InputName("list")
 	    inputValue = CurrentQuestion.Iteration(ar[CurrentQuestion.ParentLoop.CurrentIteration].Index).InputValue()
 	    nbElements = ar.Count
@@ -99,7 +97,7 @@ For increment = 1 To nbElements
 
 			{%
 			If hasparentloop = 1 Then
-				dim question = CurrentQuestion.ParentLoop.AvailableResponses[increment].caption
+    			dim question = CurrentQuestion.ParentLoop.Answers[increment].caption
 				dim captionMargin = ""
 				If CurrentADC.PropValue("captionWidth") <> "auto" Then
 					If CurrentADC.PropValue("captionAlignment") = "left" Then
@@ -120,9 +118,9 @@ For increment = 1 To nbElements
 					%}
 						{%:=question%}
 						{%
-						If CurrentQuestion.ParentLoop.AvailableResponses.resourceUrl[increment] <> "" Then
+						If CurrentQuestion.ParentLoop.Answers.resourceUrl[increment] <> "" Then
 							%}
-							<img src="{%:=CurrentQuestion.ParentLoop.AvailableResponses.resourceUrl[increment]%}"/>
+                    		<img src="{%:=CurrentQuestion.ParentLoop.Answers.resourceUrl[increment]%}"/>
 							{%
 						Else
 						EndIf
@@ -132,9 +130,9 @@ For increment = 1 To nbElements
 					ElseIf CurrentADC.PropValue("imageAlignment") = "left" Then
 					%}
 						{%
-						If CurrentQuestion.ParentLoop.AvailableResponses.resourceUrl[increment] <> "" Then
+						If CurrentQuestion.ParentLoop.Answers.resourceUrl[increment] <> "" Then
 							%}
-							<img src="{%:=CurrentQuestion.ParentLoop.AvailableResponses.resourceUrl[increment]%}"/>
+                    		<img src="{%:=CurrentQuestion.ParentLoop.Answers.resourceUrl[increment]%}"/>
 							{%
 						Else
 						EndIf
@@ -583,7 +581,7 @@ For increment = 1 To nbElements
 		%}
 
 		{%
-		Dim par = CurrentQuestion.ParentLoop.AvailableResponses
+		Dim par = CurrentQuestion.ParentLoop.Answers
 		Dim j = increment
 			inputName = CurrentQuestion.Iteration(par[j].Index).InputName()
 			inputId   = inputName

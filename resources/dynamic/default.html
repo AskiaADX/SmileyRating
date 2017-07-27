@@ -1,17 +1,5 @@
-{%
-	
-	dim hasparentloop = CurrentQuestion.HasParentLoop
-	dim indexLoop = ""
-	Dim ar
-	If hasparentloop = 1 Then
-		ar = CurrentQuestion.ParentLoop.AvailableResponses
-		indexLoop = CurrentQuestion.ParentLoop.CurrentIteration.index.toString()
-	EndIf
-	
-	%}
 <div class="controlContainer">
 	<div unselectable="on" id="adc_{%= CurrentADC.InstanceId %}" class="adc-default hidden">
-					{%:= CurrentADC.GetContent("dynamic/single.html").ToText() %}
-			
+		{%:= CurrentADC.GetContent("dynamic/single.html").ToText() %}
 	</div>
 </div>
