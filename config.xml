@@ -7,7 +7,7 @@
   <info>
     <name>SmileyRating</name>
     <guid>0d52bc75-6ad2-4512-835a-0cc6b73b75ea</guid>
-    <version>2.0.0</version>
+    <version>2.0.1</version>
     <date>2015-05-13</date>
     <description><![CDATA[1.0.6 - Fixed max width being forced outside of adc
         1.0.7 - Added new set of flat smiley icons and possibility of switching between both sets
@@ -70,10 +70,8 @@
   </outputs>
   <properties>
     <category id="general" name="General">
-      <property xsi:type="standardProperty" id="controlAlignment" name="Control Alignment" type="string" mode="static">
-        <description><![CDATA[
-                     
-                ]]></description>
+      <property xsi:type="standardProperty" id="controlAlignment" name="Control Alignment" type="string" mode="static" require="false" visible="true">
+        <description><![CDATA[]]></description>
         <value><![CDATA[center]]></value>
         <options>
           <option value="right" text="Right" />
@@ -136,11 +134,15 @@
           <option value="no" text="No" />
         </options>
       </property>
-      <property xsi:type="standardProperty" id="useList" name="Use a selection list" type="boolean" mode="static" require="false" visible="false">
+      <property xsi:type="standardProperty" id="useList" name="Use a selection list" type="string" mode="dynamic" require="true" visible="false">
         <description><![CDATA[Use a select list to enumerate all available responses.
                     This option works with closed and numeric questions.
                     For numeric question, the range between bounds should be inferior than 20. It take in account the step option.]]></description>
         <value><![CDATA[0]]></value>
+        <options>
+          <option value="1" text="Yes" />
+          <option value="0" text="No" />
+        </options>
       </property>
     </category>
     <category id="smileys" name="Smileys">
