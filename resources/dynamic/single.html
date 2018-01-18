@@ -583,9 +583,15 @@ For increment = 1 To nbElements
 		{%
 		Dim par = CurrentQuestion.ParentLoop.Answers
 		Dim j = increment
+		If hasparentloop = 1 Then
 			inputName = CurrentQuestion.Iteration(par[j].Index).InputName()
 			inputId   = inputName
 			inputValue = CurrentQuestion.Iteration(par[j].Index).InputValue()
+		Else
+    		inputName = CurrentQuestion.InputName()
+			inputId   = inputName
+			inputValue = CurrentQuestion.InputValue()
+		EndIf
 		%}
 		<input type="hidden" id="{%= inputId %}" name="{%= inputName %}" class="empty" value="{%= inputValue %}"  />
 
