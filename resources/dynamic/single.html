@@ -81,6 +81,21 @@ For increment = 1 To nbElements
 
         		%}
 
+<script>
+window.addEventListener("load", function() {
+    var imgTags = document.getElementsByTagName("img");
+    for (var i = 0; i < imgTags.length; i++) {
+        if (!imgTags[i].hasAttribute("alt")) {
+            if (imgTags[i].src != undefined) {
+            	imgTags[i].alt = imgTags[i].src.split("/")[imgTags[i].src.split("/").length-1].split(".")[0];    
+            } else {
+                imgTags[i].alt = "Impossible to load image";
+            }            
+        }
+    }
+}, false);
+</script>
+
 <div unselectable="on" id="smileys{%:=increment%}" class="answerContent" style="width:100%;height:100%;max-width:{%:=CurrentADC.PropValue("controlmaxwidth")%};">
 	{%
 	If CurrentQuestion.AvailableResponses.Count > 6 or CurrentQuestion.AvailableResponses.Count < 2 Then

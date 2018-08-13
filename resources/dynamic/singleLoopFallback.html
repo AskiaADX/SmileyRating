@@ -19,11 +19,11 @@ For j = 1 To ar.Count
 %}
 	<tr valign="top"><td>
 	{% IF image <> "" And imageAlign = "left" Then %}
-        <img src="{%= image %}" />
+        <img src="{%= image %}" alt="{%= caption %}"/>
     {% EndIF %}
     <label class="caption">{%= caption %}</label>
     {% IF image <> "" And imageAlign = "right" Then %}
-        <img src="{%= image %}" />
+        <img src="{%= image %}" alt="{%= caption %}"/>
     {% EndIF %}
 	</td><td>
 

@@ -13,7 +13,8 @@
         1.0.7 - Added new set of flat smiley icons and possibility of switching between both sets
         1.0.8 - Udpate to jquery 1.11.1 and fixed a problem of img size on win 10
 		2.0.0 - Theme implementation
-		2.0.2 - Fixed smiley rating when not in a loop]]></description>
+		2.0.2 - Fixed smiley rating when not in a loop
+		2.0.3 - Added alt attribute to img]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Timothee Plante <timothee@askia.com>        Paul Nevin <paul@askia.com>        Jerome Duparc <jeromed@askia.com>]]></author>
     <site>www.askia.com</site>
