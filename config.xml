@@ -7,14 +7,15 @@
   <info>
     <name>SmileyRating</name>
     <guid>0d52bc75-6ad2-4512-835a-0cc6b73b75ea</guid>
-    <version>2.0.2</version>
+    <version>3.0.0</version>
     <date>2015-05-13</date>
     <description><![CDATA[1.0.6 - Fixed max width being forced outside of adc
         1.0.7 - Added new set of flat smiley icons and possibility of switching between both sets
         1.0.8 - Udpate to jquery 1.11.1 and fixed a problem of img size on win 10
 		2.0.0 - Theme implementation
 		2.0.2 - Fixed smiley rating when not in a loop
-		2.0.3 - Added alt attribute to img]]></description>
+		2.0.3 - Added alt attribute to img
+		3.0.0 - AvailableAnswers]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Timothee Plante <timothee@askia.com>        Paul Nevin <paul@askia.com>        Jerome Duparc <jeromed@askia.com>]]></author>
     <site>www.askia.com</site>
@@ -23,7 +24,7 @@
       <category>General</category>
     </categories>
     <constraints>
-      <constraint on="questions" single="true" multiple="false" numeric="false" date="false" open="false" chapter="false" requireParentLoop="false" />
+      <constraint on="questions" single="true" multiple="false" numeric="false" date="false" open="false" chapter="false" requireParentLoop="false" RequireLoopDepth="false" />
       <constraint on="controls" label="true" textbox="true" responseblock="true" checkbox="false" listbox="false" radiobutton="false" />
       <constraint on="responses" max="*" min="*" />
     </constraints>

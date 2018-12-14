@@ -7,7 +7,7 @@
 	Dim ar
 	dim nbElements = 1
 	If hasparentloop = 1 Then
-    	ar = CurrentQuestion.ParentLoop.Answers
+    ar = CurrentQuestion.ParentLoop.AvailableAnswers
 	    inputName = CurrentQuestion.Iteration(ar[CurrentQuestion.ParentLoop.CurrentIteration].Index).InputName("list")
 	    inputValue = CurrentQuestion.Iteration(ar[CurrentQuestion.ParentLoop.CurrentIteration].Index).InputValue()
 	    nbElements = ar.Count
@@ -112,7 +112,7 @@ window.addEventListener("load", function() {
 
 			{%
 			If hasparentloop = 1 Then
-    			dim question = CurrentQuestion.ParentLoop.Answers[increment].caption
+    			dim question = CurrentQuestion.ParentLoop.AvailableAnswers[increment].caption
 				dim captionMargin = ""
 				If CurrentADC.PropValue("captionWidth") <> "auto" Then
 					If CurrentADC.PropValue("captionAlignment") = "left" Then
@@ -133,9 +133,9 @@ window.addEventListener("load", function() {
 					%}
 						{%:=question%}
 						{%
-						If CurrentQuestion.ParentLoop.Answers.resourceUrl[increment] <> "" Then
+							If CurrentQuestion.ParentLoop.AvailableAnswers.resourceUrl[increment] <> "" Then
 							%}
-                    		<img src="{%:=CurrentQuestion.ParentLoop.Answers.resourceUrl[increment]%}"/>
+                    		<img src="{%:=CurrentQuestion.ParentLoop.AvailableAnswers.resourceUrl[increment]%}"/>
 							{%
 						Else
 						EndIf
@@ -145,9 +145,9 @@ window.addEventListener("load", function() {
 					ElseIf CurrentADC.PropValue("imageAlignment") = "left" Then
 					%}
 						{%
-						If CurrentQuestion.ParentLoop.Answers.resourceUrl[increment] <> "" Then
+							If CurrentQuestion.ParentLoop.AvailableAnswers.resourceUrl[increment] <> "" Then
 							%}
-                    		<img src="{%:=CurrentQuestion.ParentLoop.Answers.resourceUrl[increment]%}"/>
+                    		<img src="{%:=CurrentQuestion.ParentLoop.AvailableAnswers.resourceUrl[increment]%}"/>
 							{%
 						Else
 						EndIf
@@ -596,7 +596,7 @@ window.addEventListener("load", function() {
 		%}
 
 		{%
-		Dim par = CurrentQuestion.ParentLoop.Answers
+		Dim par = CurrentQuestion.ParentLoop.AvailableAnswers
 		Dim j = increment
 		If hasparentloop = 1 Then
 			inputName = CurrentQuestion.Iteration(par[j].Index).InputName()
