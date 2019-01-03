@@ -24,13 +24,13 @@
       <category>General</category>
     </categories>
     <constraints>
-      <constraint on="questions" single="true" multiple="false" numeric="false" date="false" open="false" chapter="false" requireParentLoop="false" RequireLoopDepth="0" />
+      <constraint on="questions" single="true" multiple="false" numeric="false" date="false" open="false" chapter="false" requireParentLoop="false" requireLoopDepth="0" />
       <constraint on="controls" label="true" textbox="true" responseblock="true" checkbox="false" listbox="false" radiobutton="false" />
       <constraint on="responses" max="*" min="*" />
     </constraints>
   </info>
   <outputs defaultOutput="fallback">
-    <output id="fallback" ManageLoopDepth="1">
+    <output id="fallback" manageLoopDepth="1">
       <description><![CDATA[Fallback when the browser doesn't support Javascript]]></description>
       <condition><![CDATA[Not(Browser.Support("javascript"))]]></condition>
       <content fileName="singleFallback.html" type="html" mode="dynamic" position="none" />
@@ -39,7 +39,7 @@
       <content fileName="singleFallback.html" type="html" mode="dynamic" position="none" />
       <content fileName="singleLoopFallback.html" type="html" mode="dynamic" position="none" />
     </output>
-    <output id="standard" ManageLoopDepth="1">
+    <output id="standard" manageLoopDepth="1">
       <description><![CDATA[ Output use when javascript is enable]]></description>
       <condition><![CDATA[Browser.Support("javascript")]]></condition>
       <content fileName="jquery-1.11.1.min.js" type="javascript" mode="share" position="head" />
