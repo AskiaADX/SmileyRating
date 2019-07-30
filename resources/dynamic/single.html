@@ -6,7 +6,7 @@
 	dim hasparentloop = CurrentQuestion.HasParentLoop
 	Dim ar
 	dim nbElements = 1
-	If hasparentloop = 1 Then
+	If (hasparentloop = 1) Then
     ar = CurrentQuestion.ParentLoop.AvailableAnswers
 	    inputName = CurrentQuestion.Iteration(ar[CurrentQuestion.ParentLoop.CurrentIteration].Index).InputName("list")
 	    inputValue = CurrentQuestion.Iteration(ar[CurrentQuestion.ParentLoop.CurrentIteration].Index).InputValue()
@@ -20,7 +20,7 @@
 	dim shadow = CurrentADC.PropValue("shadow")
 	dim shadowinside = ""
 	dim shadowoutside = ""
-	If shadow = "shadowoutside" Then
+	If (shadow = "shadowoutside") Then
 		shadowoutside = "shadowoutside"
 		shadowinside = ""
 	ElseIf shadow = "shadowinside" Then
@@ -30,23 +30,23 @@
 
 	dim answerWidth
 	dim dkhovergradient = ""
-	If CurrentADC.PropValue("dkhovercolorshow") = "yes" Then
+	If (CurrentADC.PropValue("dkhovercolorshow") = "yes") Then
 		dkhovergradient = "dkhovergradient"
 	EndIf
 	dim dkhoverfont = ""
-	If CurrentADC.PropValue("dkhoverfontshow") = "yes" Then
+	If (CurrentADC.PropValue("dkhoverfontshow") = "yes") Then
 		dkhoverfont = "dkhoverfont"
 	EndIf
 	dim dkhoverborder = ""
-	If CurrentADC.PropValue("dkhoverbordershow") = "yes" Then
+	If (CurrentADC.PropValue("dkhoverbordershow") = "yes") Then
 		dkhoverborder = "dkhoverborder"
 	EndIf
 	dim dkhoverdropshadow = ""
-	If CurrentADC.PropValue("dkhovershadowshow") = "yes" Then
+	If (CurrentADC.PropValue("dkhovershadowshow") = "yes") Then
 		dkhoverdropshadow = CurrentADC.PropValue("dkhovershadow")
 	EndIf
 	dim dkselecteddropshadow = ""
-	If CurrentADC.PropValue("dkselectedshadowshow") = "yes" Then
+	If (CurrentADC.PropValue("dkselectedshadowshow") = "yes") Then
 		dkselecteddropshadow = CurrentADC.PropValue("dkselectedshadow")
 	EndIf
 
@@ -98,12 +98,12 @@ window.addEventListener("load", function() {
 
 <div unselectable="on" id="smileys{%:=increment%}" class="answerContent" style="width:100%;height:100%;max-width:{%:=CurrentADC.PropValue("controlmaxwidth")%};">
 	{%
-	If CurrentQuestion.AvailableResponses.Count > 6 or CurrentQuestion.AvailableResponses.Count < 2 Then
+	If ((CurrentQuestion.AvailableResponses.Count > 6) or (CurrentQuestion.AvailableResponses.Count < 2)) Then
 	%}
 		<p style="width:100%;height:100%;text-align:center;">This control can only be applied on a single closed question with 2 to 6 answers.</p>
 	{%
 	Else
-		If 	CurrentQuestion.AvailableResponses.Count = 6 And turnOnDK = "dkoff" Then
+		If 	((CurrentQuestion.AvailableResponses.Count = 6) And (turnOnDK = "dkoff")) Then
 			%}
 			<p style="width:100%;height:100%;text-align:center;">This control can be applied on a single closed question with 6 answers only if a DK answer is allowed (go to properties).</p>
 			{%
@@ -111,13 +111,13 @@ window.addEventListener("load", function() {
 		%}
 
 			{%
-			If hasparentloop = 1 Then
-    			dim question = CurrentQuestion.ParentLoop.AvailableAnswers[increment].caption
+			If (hasparentloop = 1) Then
+    			dim smquestion = CurrentQuestion.ParentLoop.AvailableAnswers[increment].caption
 				dim captionMargin = ""
-				If CurrentADC.PropValue("captionWidth") <> "auto" Then
-					If CurrentADC.PropValue("captionAlignment") = "left" Then
+				If (CurrentADC.PropValue("captionWidth") <> "auto") Then
+					If (CurrentADC.PropValue("captionAlignment") = "left") Then
 						captionMargin = "margin-right:auto;"
-					ElseIf CurrentADC.PropValue("captionAlignment") = "right" Then
+					ElseIf (CurrentADC.PropValue("captionAlignment") = "right") Then
 						captionMargin = "margin-left:auto;"
 					Else
 						captionMargin = "margin-right:auto;margin-left:auto;"
@@ -129,11 +129,11 @@ window.addEventListener("load", function() {
 										   width:{%:=CurrentADC.PropValue("captionWidth")%};
 										   {%:=captionMargin%}">
 					{%
-					If CurrentADC.PropValue("imageAlignment") = "right" Then
+					If (CurrentADC.PropValue("imageAlignment") = "right") Then
 					%}
-						{%:=question%}
+						{%:= smquestion%}
 						{%
-							If CurrentQuestion.ParentLoop.AvailableAnswers.resourceUrl[increment] <> "" Then
+							If (CurrentQuestion.ParentLoop.AvailableAnswers.resourceUrl[increment] <> "") Then
 							%}
                     		<img src="{%:=CurrentQuestion.ParentLoop.AvailableAnswers.resourceUrl[increment]%}"/>
 							{%
@@ -142,17 +142,17 @@ window.addEventListener("load", function() {
 						%}
 
 					{%
-					ElseIf CurrentADC.PropValue("imageAlignment") = "left" Then
+					ElseIf (CurrentADC.PropValue("imageAlignment") = "left") Then
 					%}
 						{%
-							If CurrentQuestion.ParentLoop.AvailableAnswers.resourceUrl[increment] <> "" Then
+							If (CurrentQuestion.ParentLoop.AvailableAnswers.resourceUrl[increment] <> "") Then
 							%}
                     		<img src="{%:=CurrentQuestion.ParentLoop.AvailableAnswers.resourceUrl[increment]%}"/>
 							{%
 						Else
 						EndIf
 						%}
-						{%:=question%}
+						{%:= smquestion%}
 					{%
 					EndIf
 					%}
@@ -161,13 +161,13 @@ window.addEventListener("load", function() {
 			{%
 			EndIf
 
-			If turnOnDK = "dkoff" Then
+			If (turnOnDK = "dkoff") Then
 				answerWidth = CurrentQuestion.AvailableResponses.Count * 100
 			Else
 				answerWidth = (CurrentQuestion.AvailableResponses.Count - 1)* 100
 			EndIf
 
-			If turnOnDK = "dkon" And CurrentQuestion.AvailableResponses.Count = 2 Then
+			If ((turnOnDK = "dkon") And (CurrentQuestion.AvailableResponses.Count = 2)) Then
 				%}
 
 				{%
@@ -183,12 +183,12 @@ window.addEventListener("load", function() {
 				{%
 				dim incrementImg
 				dim lastImgIteration
-				If turnOnDK = "dkon" Then
-					If CurrentQuestion.AvailableResponses.Count = 6 Then
+				If (turnOnDK = "dkon") Then
+					If (CurrentQuestion.AvailableResponses.Count = 6) Then
 						dim smilewidth = 10*CurrentADC.PropValue("smileycoef").toNumber()
 
-						If hasparentloop = 1 Then
-							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+						If (hasparentloop = 1) Then
+							If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 								%}
 								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
 								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -216,7 +216,7 @@ window.addEventListener("load", function() {
 								{%
 							EndIf
 						Else
-							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+							If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 								%}
 								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
 								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -247,10 +247,10 @@ window.addEventListener("load", function() {
 						%}
 						<div class="{%:=CurrentQuestion.AvailableResponses[6].InputValue()%} dkdiv dkgradient {%:=dkhovergradient%} {%:=dkhoverfont%} {%:=dkhoverborder%} dkradius {%:=CurrentADC.PropValue("dkshadow")%} {%:=dkhoverdropshadow%} {%:=dkselecteddropshadow%}" style="cursor:pointer;">{%:=CurrentADC.PropValue("DKtext")%}</div>
 						{%
-					ElseIf CurrentQuestion.AvailableResponses.Count = 5 Then
+					ElseIf (CurrentQuestion.AvailableResponses.Count = 5) Then
 						smilewidth = 12.5*CurrentADC.PropValue("smileycoef").toNumber()
-						If hasparentloop = 1 Then
-							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+						If (hasparentloop = 1) Then
+							If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 								%}
 								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
 								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -274,7 +274,7 @@ window.addEventListener("load", function() {
 								{%
 							EndIf
 						Else
-							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+							If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 								%}
 								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
 								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -301,10 +301,10 @@ window.addEventListener("load", function() {
 						%}
 						<div class="{%:=CurrentQuestion.AvailableResponses[5].InputValue()%} dkdiv dkgradient {%:=dkhovergradient%} {%:=dkhoverfont%} {%:=dkhoverborder%} dkradius {%:=CurrentADC.PropValue("dkshadow")%} {%:=dkhoverdropshadow%} {%:=dkselecteddropshadow%}" style="cursor:pointer;">{%:=CurrentADC.PropValue("DKtext")%}</div>
 						{%
-					ElseIf CurrentQuestion.AvailableResponses.Count = 4 Then
+					ElseIf (CurrentQuestion.AvailableResponses.Count = 4) Then
 						smilewidth = 16.7*CurrentADC.PropValue("smileycoef").toNumber()
-						If hasparentloop = 1 Then
-							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+						If (hasparentloop = 1) Then
+							If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 								%}
 								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
 								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -324,7 +324,7 @@ window.addEventListener("load", function() {
 								{%
 							EndIf
 						Else
-							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+							If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 								%}
 								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
 								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -347,10 +347,10 @@ window.addEventListener("load", function() {
 						%}
 						<div class="{%:=CurrentQuestion.AvailableResponses[4].InputValue()%} dkdiv dkgradient {%:=dkhovergradient%} {%:=dkhoverfont%} {%:=dkhoverborder%} dkradius {%:=CurrentADC.PropValue("dkshadow")%} {%:=dkhoverdropshadow%} {%:=dkselecteddropshadow%}" style="cursor:pointer;">{%:=CurrentADC.PropValue("DKtext")%}</div>
 						{%
-					ElseIf CurrentQuestion.AvailableResponses.Count = 3 Then
+					ElseIf (CurrentQuestion.AvailableResponses.Count = 3) Then
 						smilewidth = 25*CurrentADC.PropValue("smileycoef").toNumber()
-						If hasparentloop = 1 Then
-							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+						If (hasparentloop = 1) Then
+							If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 								%}
 								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
 								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -366,7 +366,7 @@ window.addEventListener("load", function() {
 								{%
 							EndIf
 						Else
-							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+							If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 								%}
 								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
 								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -385,16 +385,16 @@ window.addEventListener("load", function() {
 						%}
 						<div class="{%:=CurrentQuestion.AvailableResponses[3].InputValue()%} dkdiv dkgradient {%:=dkhovergradient%} {%:=dkhoverfont%} {%:=dkhoverborder%} dkradius {%:=CurrentADC.PropValue("dkshadow")%} {%:=dkhoverdropshadow%} {%:=dkselecteddropshadow%}" style="cursor:pointer;">{%:=CurrentADC.PropValue("DKtext")%}</div>
 						{%
-					ElseIf CurrentQuestion.AvailableResponses.Count = 2 Then
+					ElseIf (CurrentQuestion.AvailableResponses.Count = 2) Then
 						%}
 						<p style="width:100%;height:100%;text-align:center;">It is not possible to turn on DK answer when the question only has two answers.</p>
 						{%
 					EndIf
-				ElseIf turnOnDK = "dkoff" Then
-					If CurrentQuestion.AvailableResponses.Count = 5 Then
+				ElseIf (turnOnDK = "dkoff") Then
+					If (CurrentQuestion.AvailableResponses.Count = 5) Then
 						dim smilewidth = 10*CurrentADC.PropValue("smileycoef").toNumber()
-							If hasparentloop = 1 Then
-								If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+							If (hasparentloop = 1) Then
+								If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 									%}
 									<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
 									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -422,7 +422,7 @@ window.addEventListener("load", function() {
 									{%
 								EndIf
 							Else
-								If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+								If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 									%}
 									<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
 									<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -450,10 +450,10 @@ window.addEventListener("load", function() {
 									{%
 								EndIf
 							EndIf
-					ElseIf CurrentQuestion.AvailableResponses.Count = 4 Then
+					ElseIf (CurrentQuestion.AvailableResponses.Count = 4) Then
 						smilewidth = 12.5*CurrentADC.PropValue("smileycoef").toNumber()
-						If hasparentloop = 1 Then
-							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+						If (hasparentloop = 1) Then
+							If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 								%}
 								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
 								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -477,7 +477,7 @@ window.addEventListener("load", function() {
 								{%
 							EndIf
 						Else
-							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+							If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 								%}
 								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
 								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -501,10 +501,10 @@ window.addEventListener("load", function() {
 								{%
 							EndIf
 						EndIf
-					ElseIf CurrentQuestion.AvailableResponses.Count = 3 Then
+					ElseIf (CurrentQuestion.AvailableResponses.Count = 3) Then
 						smilewidth = 16.7*CurrentADC.PropValue("smileycoef").toNumber()
-						If hasparentloop = 1 Then
-							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+						If (hasparentloop = 1) Then
+							If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 								%}
 								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
 								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -524,7 +524,7 @@ window.addEventListener("load", function() {
 								{%
 							EndIf
 						Else
-							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+							If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 								%}
 								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
 								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -544,10 +544,10 @@ window.addEventListener("load", function() {
 								{%
 							EndIf
 						EndIf
-					ElseIf CurrentQuestion.AvailableResponses.Count = 2 Then
+					ElseIf (CurrentQuestion.AvailableResponses.Count = 2) Then
 						smilewidth = 25*CurrentADC.PropValue("smileycoef").toNumber()
-						If hasparentloop = 1 Then
-							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+						If (hasparentloop = 1) Then
+							If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 								%}
 								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.Iteration(increment).AvailableResponses[1].caption%}</span>
 								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -563,7 +563,7 @@ window.addEventListener("load", function() {
 								{%
 							EndIf
 						Else
-							If CurrentADC.PropValue("smileysorientation") = "lefttoright" Then
+							If (CurrentADC.PropValue("smileysorientation") = "lefttoright") Then
 								%}
 								<span class="classic{%:=CurrentQuestion.AvailableResponses[1].InputValue()%} tooltip">{%:=CurrentQuestion.AvailableResponses[1].caption%}</span>
 								<img class="smile answer{%:=CurrentQuestion.AvailableResponses[1].InputValue()%}answer" style="cursor:pointer;width:{%:=smilewidth%}%;left:0%;" src="{%:= image1 %}" />
@@ -586,7 +586,7 @@ window.addEventListener("load", function() {
 			</div>
 
 			{%
-			If hasparentloop = 1 Then
+			If (hasparentloop = 1) Then
 				inputName = CurrentQuestion.Iteration(increment).InputName()
 				inputValue = CurrentQuestion.Iteration(increment).InputValue()
 			EndIf
@@ -598,7 +598,7 @@ window.addEventListener("load", function() {
 		{%
 		Dim par = CurrentQuestion.ParentLoop.AvailableAnswers
 		Dim j = increment
-		If hasparentloop = 1 Then
+		If (hasparentloop = 1) Then
 			inputName = CurrentQuestion.Iteration(par[j].Index).InputName()
 			inputId   = inputName
 			inputValue = CurrentQuestion.Iteration(par[j].Index).InputValue()
