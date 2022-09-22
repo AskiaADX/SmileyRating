@@ -1,8 +1,7 @@
 /* standard.js */
-$(document).ready(function(){
-	window.onload = function (){
+$(window).on("load",function() {
 		$('#adc_{%= CurrentADC.InstanceId %}').adcSmileyrating({
-          	InstanceId : {%= CurrentADC.InstanceId %},
+      InstanceId : {%= CurrentADC.InstanceId %},
 			backgroundBorderSize : '{%:=CurrentADC.PropValue("backgroundBorderSize")%}',
 			smileyminwidth : '{%:=CurrentADC.PropValue("smileyminwidth")%}',
 			smileybigcoef : '{%:=CurrentADC.PropValue("smileybigcoef")%}',
@@ -25,5 +24,4 @@ $(document).ready(function(){
 			autoForward: '{%:=CurrentADC.PropValue("autoForward")%}',
           	currentQuestion: '{%:= CurrentQuestion.Shortcut %}',
 		});
-	}
 });

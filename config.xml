@@ -7,16 +7,19 @@
   <info>
     <name>SmileyRating</name>
     <guid>0d52bc75-6ad2-4512-835a-0cc6b73b75ea</guid>
-    <version>3.0.1</version>
-    <date>2015-05-13</date>
-    <description><![CDATA[1.0.6 - Fixed max width being forced outside of adc
-        1.0.7 - Added new set of flat smiley icons and possibility of switching between both sets
-        1.0.8 - Udpate to jquery 1.11.1 and fixed a problem of img size on win 10
-		2.0.0 - Theme implementation
-		2.0.2 - Fixed smiley rating when not in a loop
-		2.0.3 - Added alt attribute to img
-		3.0.0 - AvailableAnswers
-		3.0.1 - Fixed dim question]]></description>
+    <version>3.1.0</version>
+    <date>2022-09-22</date>
+    <description><![CDATA[
+      1.0.6 - Fixed max width being forced outside of adc
+      1.0.7 - Added new set of flat smiley icons and possibility of switching between both sets
+      1.0.8 - Udpate to jquery 1.11.1 and fixed a problem of img size on win 10
+  		2.0.0 - Theme implementation
+  		2.0.2 - Fixed smiley rating when not in a loop
+  		2.0.3 - Added alt attribute to img
+  		3.0.0 - AvailableAnswers
+  		3.0.1 - Fixed dim question
+      3.1.0 - Libraries updated,
+            - share folder removed]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Timothee Plante <timothee@askia.com>        Paul Nevin <paul@askia.com>        Jerome Duparc <jeromed@askia.com>]]></author>
     <site>www.askia.com</site>
@@ -43,8 +46,8 @@
     <output id="standard" manageLoopDepth="1">
       <description><![CDATA[ Output use when javascript is enable]]></description>
       <condition><![CDATA[Browser.Support("javascript")]]></condition>
-      <content fileName="jquery-1.11.1.min.js" type="javascript" mode="share" position="head" />
-      <content fileName="jquery.timer.js" type="javascript" mode="share" position="head" />
+      <content fileName="jquery-3.6.0.min.js" type="javascript" mode="static" position="head" />
+      <content fileName="jquery.timer.js" type="javascript" mode="static" position="head" />
       <content fileName="smileyRating.css" type="css" mode="dynamic" position="head" />
       <content fileName="default.html" type="html" mode="dynamic" position="placeholder" />
       <content fileName="single.html" type="html" mode="dynamic" position="none" />
@@ -85,13 +88,13 @@
       </property>
       <property xsi:type="standardProperty" id="controlwidth" name="Control Width" type="string" mode="static">
         <description><![CDATA[
-                     
+
                 ]]></description>
         <value><![CDATA[100%]]></value>
       </property>
       <property xsi:type="standardProperty" id="controlmaxwidth" name="Control Max Width" type="string" mode="static">
         <description><![CDATA[
-                     
+
                 ]]></description>
         <value><![CDATA[500px]]></value>
       </property>
@@ -288,7 +291,7 @@
       </property>
       <property xsi:type="standardProperty" id="forceImageSize" name="Force Image Size" type="string" mode="static">
         <description><![CDATA[
-                     
+
                 ]]></description>
         <value><![CDATA[no]]></value>
         <options>

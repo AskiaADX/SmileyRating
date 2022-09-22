@@ -32,16 +32,16 @@
 
 		$(this).css({'max-width':options.controlmaxwidth,'width':options.controlWidth});
 		$(this).parents('.controlContainer').css({'width':'100%','overflow':'hidden'});
-		
+
 		if ( options.controlAlignment === "center" ) {
 			$(this).parents('.controlContainer').css({'text-align':'center'});
 			$(this).css({'margin':'0px auto'});
 		} else if ( options.controlAlignment === "right" ) {
 			$(this).css({'margin':'0 0 0 auto'});
 		}
-		
+
 		//$(this).css({'max-width':options.controlmaxwidth});
-		
+
 		function getValue(string){
 			var value;
 			if ( string.indexOf("px") != -1 ) {
@@ -72,7 +72,7 @@
 			return {
 				smileyMinPercent: smileyMinPercent,
 				smileyMinWidth: smileyMinWidth
-			};  
+			};
 		}
 
 
@@ -88,16 +88,16 @@
 			$img.addClass("bigsmile");
 			$adcAnswers.find('input').val(""+$img.attr("class").split("answer")[1].split("answer")[0]);
 			$adcAnswers.find('input').attr("class",$img[0].id);
-            if (window.askia 
-                && window.arrLiveRoutingShortcut 
+            if (window.askia
+                && window.arrLiveRoutingShortcut
                 && window.arrLiveRoutingShortcut.length > 0
                 && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                 askia.triggerAnswer();
             }
 		}
-		
-		
-		
+
+
+
 		function autoForward(){
 			if ( options.autoForward == 'true' && youHaveClicked) {
 				var index, boundary, $smileys = $('.answerContent');
@@ -143,7 +143,7 @@
 					if (options.animate == "yes") {
 						$img.animate({width:imgPercentWidth*resizeCoef+'%', top:-((answerHeight/2) + borderSize + (imgBigSize/2))+'px', left:bigPercentLeft+'%'},parseInt(options.animateSpeed));
 					}
-					else{	
+					else{
 						$img.css({width:imgPercentWidth*resizeCoef+'%', top:-((answerHeight/2) + borderSize + (imgBigSize/2))+'px', left:bigPercentLeft+'%'});
 					}
 				}
@@ -208,8 +208,8 @@
 		function fatDK($element, $adcAnswers){
 			$element.attr("class",$element.attr("class")+" dkselected");
 			$adcAnswers.find('input').val($element.attr("class").split(" ")[0]);
-            if (window.askia 
-                && window.arrLiveRoutingShortcut 
+            if (window.askia
+                && window.arrLiveRoutingShortcut
                 && window.arrLiveRoutingShortcut.length > 0
                 && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                 askia.triggerAnswer();
@@ -221,7 +221,7 @@
 
 
 		function clickEvent($adcAnswers){
-			$('.smile',$adcAnswers).mousedown(function(){
+			$('.smile',$adcAnswers).on('mousedown', function(){
 				youHaveClicked = true;
 				var index, boundary, element = $( ".smile:animated",$adcAnswers );
 				for (index = 0,boundary = element.length; index < boundary; index++) {
@@ -242,7 +242,7 @@
 				}
 			});
 			if ( options.turnOnDK == "dkon" ) {
-				$('.dkdiv',$adcAnswers).mousedown(function(){
+				$('.dkdiv',$adcAnswers).on('mousedown', function(){
 					youHaveClicked = true;
 					$( ".smile:animated",$adcAnswers ).stop();
 					if ( $adcAnswers.find('input').attr("class") != $(this)[0].id) {
@@ -360,7 +360,7 @@
 				var alreadyFat = false;
 				var val = $adcAnswers.find('input').val();
 				if (val.slice(-1) == " ") {
-					val = val.slice(0,-1);	
+					val = val.slice(0,-1);
 				}
 				var index, boundary, elements = $("img", $(".smileysSection",$adcAnswers));
 				for (index = 0, boundary = elements.length; index < boundary; index++) {
@@ -375,7 +375,7 @@
 		function compareImgToInput($adcAnswers,index,val,alreadyFat){
 			var text = $($(".smile", $(".smileysSection",$adcAnswers))[index]).attr("class").split("answer")[1].split("answer")[0];
 			if (text.slice(-1) == " ") {
-				text = text.slice(0,-1);	
+				text = text.slice(0,-1);
 			}
 			if ( (text == val) && !alreadyFat) {
 				fatImage($("#"+$(".smile", $(".smileysSection",$adcAnswers))[index].id,$adcAnswers),$adcAnswers);
@@ -388,13 +388,13 @@
 			var text = $("span",$adcAnswers).attr("class");
 			if (text != undefined) {
 				if (text.slice(-1) == " ") {
-					text = text.slice(0,-1);	
+					text = text.slice(0,-1);
 				}
 				if ( (text == val) && !alreadyFat) {
 					$adcAnswers.find('input').val($("span",$adcAnswers).attr("class"));
 					$adcAnswers.find('input').attr("class",$("span",$adcAnswers)[0].id);
-                    if (window.askia 
-                        && window.arrLiveRoutingShortcut 
+                    if (window.askia
+                        && window.arrLiveRoutingShortcut
                         && window.arrLiveRoutingShortcut.length > 0
                         && window.arrLiveRoutingShortcut.indexOf(options.currentQuestion) >= 0) {
                         askia.triggerAnswer();
@@ -410,7 +410,7 @@
 				var alreadyFat = false;
 				var val = $adcAnswers.find('input').val();
 				if (val.slice(-1) == " ") {
-					val = val.slice(0,-1);	
+					val = val.slice(0,-1);
 				}
 				var index, boundary, elements = $("img", $(".smileysSection",$adcAnswers));
 				for (index = 0, boundary = elements.length; index < boundary; index++) {
@@ -427,7 +427,7 @@
 			var imgSize;
 			var borderSize = parseInt(options.backgroundBorderSize);
 			if ( parseFloat(options.smileycoef) <= parseFloat(options.smileybigcoef) ) {
-				imgSize = Math.min($($(".smile", $adcAnswers)[0]).height(),$($(".smile", $adcAnswers)[1]).height());	
+				imgSize = Math.min($($(".smile", $adcAnswers)[0]).height(),$($(".smile", $adcAnswers)[1]).height());
 			}
 			else{
 				imgSize = Math.max($($(".smile", $adcAnswers)[0]).height(),$($(".smile", $adcAnswers)[1]).height());
@@ -449,10 +449,10 @@
 		function resizeToScreen(){
 			sizeCoef = 1349/$( window ).width();
 			// resize the screen
-			//$(".adc-default").css({"max-width":$( window ).width()+'px'}); 
-			//$(".framecontainer").css({"max-width":$( window ).width()+'px'}); 
-			//$("#navcontainer").css({"max-width":$( window ).width()+'px'}); 
-			//$("#navcontent").css({"max-width":$( window ).width()+'px'}); 
+			//$(".adc-default").css({"max-width":$( window ).width()+'px'});
+			//$(".framecontainer").css({"max-width":$( window ).width()+'px'});
+			//$("#navcontainer").css({"max-width":$( window ).width()+'px'});
+			//$("#navcontent").css({"max-width":$( window ).width()+'px'});
 			resizeAnswerBar();
 		}
 
@@ -501,7 +501,7 @@
 
 
 		function tooltipListener(){
-			$(".smile").mouseenter(function(){
+			$(".smile").on('mouseenter', function(){
 				$(".classic"+$(this).attr("class").split("answer")[1].split("answer")[0],$(this).parent()).addClass("tooltiphover");
 				if ( options.showTooltips == "yes") {
 					var smileyBigHeight = computeSmileyBigHeight($(this).parent());
@@ -525,7 +525,7 @@
 					$('.tooltiphover',$(this).parent()).css({"left":($(this).position().left+$(this).width()/2-($('.tooltiphover',$(this).parent()).width()/2 + tooltipPadding))+'px'});
 				}
 			});
-			$(".smile").mouseout(function(){
+			$(".smile").on('mouseout', function(){
 				$(".classic"+$(this).attr("class").split("answer")[1].split("answer")[0],$(this).parent()).removeClass("tooltiphover");
 				$(".classic"+$(this).attr("class").split("answer")[1].split("answer")[0],$(this).parent()).css({"margin-left":'-999em'});
 			});
@@ -584,7 +584,7 @@
 			if ( nbADC > 1 ) {
 				var indexADC = 0;
 				while ( $(".answerContent").length > nbADC ) {
-					var indexSmiley, boundary, $smileys = $(".answerContent",$($(".adc-default")[indexADC]));	
+					var indexSmiley, boundary, $smileys = $(".answerContent",$($(".adc-default")[indexADC]));
 					for ( indexSmiley = 0, boundary = $smileys.length; indexSmiley < boundary; indexSmiley++ ) {
 						if ( indexSmiley != indexADC ) {
 							$($smileys[indexSmiley]).remove();
@@ -623,7 +623,7 @@
 			}
 		}
 
-		
+
 		$('.adc-default').removeClass('hidden');
 		var nbAnswers = options.availableResponsesCount;
 		removeExtraLoopElements();
@@ -651,7 +651,7 @@
 				}
 			}
 		}
-		
+
 	};
 
 }(window, jQuery));
