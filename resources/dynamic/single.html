@@ -17,16 +17,6 @@
 	EndIf
 
 	dim turnOnDK = CurrentADC.PropValue("turnOnDK")
-	dim shadow = CurrentADC.PropValue("shadow")
-	dim shadowinside = ""
-	dim shadowoutside = ""
-	If (shadow = "shadowoutside") Then
-		shadowoutside = "shadowoutside"
-		shadowinside = ""
-	ElseIf shadow = "shadowinside" Then
-		shadowoutside = ""
-		shadowinside = "shadowinside"
-	EndIf
 
 	dim answerWidth
 	dim dkhovergradient = ""
@@ -87,10 +77,10 @@ window.addEventListener("load", function() {
     for (var i = 0; i < imgTags.length; i++) {
         if (!imgTags[i].hasAttribute("alt")) {
             if (imgTags[i].src != undefined) {
-            	imgTags[i].alt = imgTags[i].src.split("/")[imgTags[i].src.split("/").length-1].split(".")[0];    
+            	imgTags[i].alt = imgTags[i].src.split("/")[imgTags[i].src.split("/").length-1].split(".")[0];
             } else {
                 imgTags[i].alt = "Impossible to load image";
-            }            
+            }
         }
     }
 }, false);
@@ -173,8 +163,8 @@ window.addEventListener("load", function() {
 				{%
 			Else
 				%}
-				<div id="answers{%:=increment%}" class="radius {%:=shadowoutside%} answers" style="width:90%;height:{%:=controlheight%};">
-						<div id="gradientSection" class="gradientSection {%:=CurrentADC.PropValue("gradient")%} {%:=shadowinside%}" style="width:100%;"></div>
+				<div id="answers{%:=increment%}" class="radius answers" style="width:90%;height:{%:=controlheight%};">
+						<div id="gradientSection" class="gradientSection {%:=CurrentADC.PropValue("gradient")%}" style="width:100%;"></div>
 				</div>
 				{%
 			EndIf

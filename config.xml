@@ -7,8 +7,8 @@
   <info>
     <name>SmileyRating</name>
     <guid>0d52bc75-6ad2-4512-835a-0cc6b73b75ea</guid>
-    <version>3.1.0</version>
-    <date>2022-09-22</date>
+    <version>3.1.1</version>
+    <date>2022-10-18</date>
     <description><![CDATA[
       1.0.6 - Fixed max width being forced outside of adc
       1.0.7 - Added new set of flat smiley icons and possibility of switching between both sets
@@ -19,7 +19,9 @@
   		3.0.0 - AvailableAnswers
   		3.0.1 - Fixed dim question
       3.1.0 - Libraries updated,
-            - share folder removed]]></description>
+            - share folder removed
+      3.1.1 - DOF runtime errors fixed
+      ]]></description>
     <company>Askia SAS</company>
     <author><![CDATA[Timothee Plante <timothee@askia.com>        Paul Nevin <paul@askia.com>        Jerome Duparc <jeromed@askia.com>]]></author>
     <site>www.askia.com</site>
@@ -416,6 +418,7 @@
           <option value="none" text="None" />
         </options>
       </property>
+
       <property xsi:type="standardProperty" id="dkshadow" name="DK Drop Shadow" type="string" mode="static" require="false" visible="false">
         <description><![CDATA[DK Drop shadow]]></description>
         <value><![CDATA[none]]></value>
@@ -475,6 +478,14 @@
           <option value="none" text="None" />
         </options>
       </property>
+      <property xsi:type="standardProperty" id="dkhovershadowshow" name="Show DK Hover Drop Shadow" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[Show DK Hover Drop Shadow]]></description>
+        <value><![CDATA[yes]]></value>
+        <options>
+          <option value="no" text="No" />
+          <option value="yes" text="Yes" />
+        </options>
+      </property>
       <property xsi:type="standardProperty" id="dkhovershadow" name="DK Hover Drop Shadow" type="string" mode="static" require="false" visible="false">
         <description><![CDATA[DK Hover Drop Shadow]]></description>
         <value><![CDATA[0px 2px 4px rgba(0,0,0,.2)]]></value>
@@ -508,6 +519,14 @@
           <option value="dashed" text="Dashed" />
           <option value="dotted" text="Dotted" />
           <option value="none" text="None" />
+        </options>
+      </property>
+      <property xsi:type="standardProperty" id="dkselectedshadowshow" name="Show DK Selected Shadow" type="string" mode="static" require="false" visible="false">
+        <description><![CDATA[Show DK Selected Shadow]]></description>
+        <value><![CDATA[yes]]></value>
+        <options>
+          <option value="no" text="No" />
+          <option value="yes" text="Yes" />
         </options>
       </property>
       <property xsi:type="standardProperty" id="dkselectedshadow" name="DK Selected Drop Shadow" type="string" mode="static" require="false" visible="false">
